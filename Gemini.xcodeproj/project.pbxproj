@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF6F1E3020E2DCE400551D26 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F1E2F20E2DCE400551D26 /* BoardView.swift */; };
+		BF6F1E3220E2DCF300551D26 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F1E3120E2DCF300551D26 /* TileView.swift */; };
+		BF6F1E3420E2DD0D00551D26 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F1E3320E2DD0D00551D26 /* TileSet.swift */; };
 		BF9BFD4320E2D1130077BA5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD4220E2D1130077BA5F /* AppDelegate.swift */; };
-		BF9BFD4520E2D1130077BA5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD4420E2D1130077BA5F /* ViewController.swift */; };
 		BF9BFD4820E2D1130077BA5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFD4620E2D1130077BA5F /* Main.storyboard */; };
 		BF9BFD4B20E2D1130077BA5F /* Gemini.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD4920E2D1130077BA5F /* Gemini.xcdatamodeld */; };
 		BF9BFD4D20E2D1140077BA5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFD4C20E2D1140077BA5F /* Assets.xcassets */; };
 		BF9BFD5020E2D1140077BA5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFD4E20E2D1140077BA5F /* LaunchScreen.storyboard */; };
 		BF9BFD5B20E2D1150077BA5F /* GeminiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD5A20E2D1150077BA5F /* GeminiTests.swift */; };
 		BF9BFD6620E2D1150077BA5F /* GeminiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD6520E2D1150077BA5F /* GeminiUITests.swift */; };
+		BF9BFD7620E2D9570077BA5F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD7520E2D9570077BA5F /* GameViewController.swift */; };
+		BF9BFD7A20E2DC6A0077BA5F /* TileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD7920E2DC6A0077BA5F /* TileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF6F1E2F20E2DCE400551D26 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		BF6F1E3120E2DCF300551D26 /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
+		BF6F1E3320E2DD0D00551D26 /* TileSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
 		BF9BFD3F20E2D1130077BA5F /* Gemini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gemini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF9BFD4220E2D1130077BA5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF9BFD4420E2D1130077BA5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BF9BFD4720E2D1130077BA5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF9BFD4A20E2D1130077BA5F /* Gemini.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gemini.xcdatamodel; sourceTree = "<group>"; };
 		BF9BFD4C20E2D1140077BA5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +55,8 @@
 		BF9BFD6120E2D1150077BA5F /* GeminiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeminiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF9BFD6520E2D1150077BA5F /* GeminiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiUITests.swift; sourceTree = "<group>"; };
 		BF9BFD6720E2D1150077BA5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF9BFD7520E2D9570077BA5F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		BF9BFD7920E2DC6A0077BA5F /* TileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +108,11 @@
 			isa = PBXGroup;
 			children = (
 				BF9BFD4220E2D1130077BA5F /* AppDelegate.swift */,
-				BF9BFD4420E2D1130077BA5F /* ViewController.swift */,
+				BF9BFD7520E2D9570077BA5F /* GameViewController.swift */,
+				BF9BFD7920E2DC6A0077BA5F /* TileViewController.swift */,
+				BF6F1E2F20E2DCE400551D26 /* BoardView.swift */,
+				BF6F1E3320E2DD0D00551D26 /* TileSet.swift */,
+				BF6F1E3120E2DCF300551D26 /* TileView.swift */,
 				BF9BFD4620E2D1130077BA5F /* Main.storyboard */,
 				BF9BFD4C20E2D1140077BA5F /* Assets.xcassets */,
 				BF9BFD4E20E2D1140077BA5F /* LaunchScreen.storyboard */,
@@ -259,9 +271,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF9BFD7620E2D9570077BA5F /* GameViewController.swift in Sources */,
+				BF6F1E3420E2DD0D00551D26 /* TileSet.swift in Sources */,
 				BF9BFD4B20E2D1130077BA5F /* Gemini.xcdatamodeld in Sources */,
-				BF9BFD4520E2D1130077BA5F /* ViewController.swift in Sources */,
+				BF6F1E3020E2DCE400551D26 /* BoardView.swift in Sources */,
 				BF9BFD4320E2D1130077BA5F /* AppDelegate.swift in Sources */,
+				BF6F1E3220E2DCF300551D26 /* TileView.swift in Sources */,
+				BF9BFD7A20E2DC6A0077BA5F /* TileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
