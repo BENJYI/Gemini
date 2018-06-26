@@ -8,14 +8,49 @@
 
 import UIKit
 
+protocol TileViewDelegate: AnyObject {
+    func didSelectTileWithTag(tag: Int)
+}
+
 class TileView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    var type: String?
+    var frameInset: CGPoint?
+    var tileDimensions: CGPoint?
+    weak var delegate: TileViewDelegate?
+    
+    init(frame: CGRect, type: String, tag: Int) {
+        super.init(frame: frame)
+        self.type = type
+        self.tag = tag
+        self.frame = frame
+        
+        frameInset = CGPoint.init(x: frame.size.width * 0.1, y: frame.size.height * 0.1)
+        tileDimensions = CGPoint.init(x: frame.size.width, y: frame.size.height)
+        layer.borderWidth = 0.3
+        layer.borderColor = UIColor.gray.cgColor
+        layer.shadowOffset = CGSize.init(width: 0, height: 3)
+        clipsToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.0
+        layer.shadowOpacity = 0.0
+        
+        let imageView = UIImageView.init(image: UIImage.init(named: type))
+        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(imageView)
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[imageView]|", options: [], metrics: [:], views: ["imageView" : imageView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[imageView]|", options: [], metrics: [:], views: ["imageView" : imageView]))
+        
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(selectNewTile))
+        addGestureRecognizer(tapGesture)
     }
-    */
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @objc func selectNewTile() {
+        delegate?.didSelectTileWithTag(tag: tag)
+    }
 }
