@@ -1,0 +1,600 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BF9BFD4320E2D1130077BA5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD4220E2D1130077BA5F /* AppDelegate.swift */; };
+		BF9BFD4520E2D1130077BA5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD4420E2D1130077BA5F /* ViewController.swift */; };
+		BF9BFD4820E2D1130077BA5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFD4620E2D1130077BA5F /* Main.storyboard */; };
+		BF9BFD4B20E2D1130077BA5F /* Gemini.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD4920E2D1130077BA5F /* Gemini.xcdatamodeld */; };
+		BF9BFD4D20E2D1140077BA5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFD4C20E2D1140077BA5F /* Assets.xcassets */; };
+		BF9BFD5020E2D1140077BA5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9BFD4E20E2D1140077BA5F /* LaunchScreen.storyboard */; };
+		BF9BFD5B20E2D1150077BA5F /* GeminiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD5A20E2D1150077BA5F /* GeminiTests.swift */; };
+		BF9BFD6620E2D1150077BA5F /* GeminiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BFD6520E2D1150077BA5F /* GeminiUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BF9BFD5720E2D1150077BA5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9BFD3720E2D1130077BA5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF9BFD3E20E2D1130077BA5F;
+			remoteInfo = Gemini;
+		};
+		BF9BFD6220E2D1150077BA5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9BFD3720E2D1130077BA5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF9BFD3E20E2D1130077BA5F;
+			remoteInfo = Gemini;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BF9BFD3F20E2D1130077BA5F /* Gemini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gemini.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF9BFD4220E2D1130077BA5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BF9BFD4420E2D1130077BA5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF9BFD4720E2D1130077BA5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BF9BFD4A20E2D1130077BA5F /* Gemini.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gemini.xcdatamodel; sourceTree = "<group>"; };
+		BF9BFD4C20E2D1140077BA5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BF9BFD4F20E2D1140077BA5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BF9BFD5120E2D1140077BA5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF9BFD5620E2D1150077BA5F /* GeminiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeminiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF9BFD5A20E2D1150077BA5F /* GeminiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiTests.swift; sourceTree = "<group>"; };
+		BF9BFD5C20E2D1150077BA5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF9BFD6120E2D1150077BA5F /* GeminiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeminiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF9BFD6520E2D1150077BA5F /* GeminiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiUITests.swift; sourceTree = "<group>"; };
+		BF9BFD6720E2D1150077BA5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BF9BFD3C20E2D1130077BA5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9BFD5320E2D1150077BA5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9BFD5E20E2D1150077BA5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BF9BFD3620E2D1130077BA5F = {
+			isa = PBXGroup;
+			children = (
+				BF9BFD4120E2D1130077BA5F /* Gemini */,
+				BF9BFD5920E2D1150077BA5F /* GeminiTests */,
+				BF9BFD6420E2D1150077BA5F /* GeminiUITests */,
+				BF9BFD4020E2D1130077BA5F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BF9BFD4020E2D1130077BA5F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF9BFD3F20E2D1130077BA5F /* Gemini.app */,
+				BF9BFD5620E2D1150077BA5F /* GeminiTests.xctest */,
+				BF9BFD6120E2D1150077BA5F /* GeminiUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF9BFD4120E2D1130077BA5F /* Gemini */ = {
+			isa = PBXGroup;
+			children = (
+				BF9BFD4220E2D1130077BA5F /* AppDelegate.swift */,
+				BF9BFD4420E2D1130077BA5F /* ViewController.swift */,
+				BF9BFD4620E2D1130077BA5F /* Main.storyboard */,
+				BF9BFD4C20E2D1140077BA5F /* Assets.xcassets */,
+				BF9BFD4E20E2D1140077BA5F /* LaunchScreen.storyboard */,
+				BF9BFD5120E2D1140077BA5F /* Info.plist */,
+				BF9BFD4920E2D1130077BA5F /* Gemini.xcdatamodeld */,
+			);
+			path = Gemini;
+			sourceTree = "<group>";
+		};
+		BF9BFD5920E2D1150077BA5F /* GeminiTests */ = {
+			isa = PBXGroup;
+			children = (
+				BF9BFD5A20E2D1150077BA5F /* GeminiTests.swift */,
+				BF9BFD5C20E2D1150077BA5F /* Info.plist */,
+			);
+			path = GeminiTests;
+			sourceTree = "<group>";
+		};
+		BF9BFD6420E2D1150077BA5F /* GeminiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BF9BFD6520E2D1150077BA5F /* GeminiUITests.swift */,
+				BF9BFD6720E2D1150077BA5F /* Info.plist */,
+			);
+			path = GeminiUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BF9BFD3E20E2D1130077BA5F /* Gemini */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF9BFD6A20E2D1150077BA5F /* Build configuration list for PBXNativeTarget "Gemini" */;
+			buildPhases = (
+				BF9BFD3B20E2D1130077BA5F /* Sources */,
+				BF9BFD3C20E2D1130077BA5F /* Frameworks */,
+				BF9BFD3D20E2D1130077BA5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gemini;
+			productName = Gemini;
+			productReference = BF9BFD3F20E2D1130077BA5F /* Gemini.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BF9BFD5520E2D1150077BA5F /* GeminiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF9BFD6D20E2D1150077BA5F /* Build configuration list for PBXNativeTarget "GeminiTests" */;
+			buildPhases = (
+				BF9BFD5220E2D1150077BA5F /* Sources */,
+				BF9BFD5320E2D1150077BA5F /* Frameworks */,
+				BF9BFD5420E2D1150077BA5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF9BFD5820E2D1150077BA5F /* PBXTargetDependency */,
+			);
+			name = GeminiTests;
+			productName = GeminiTests;
+			productReference = BF9BFD5620E2D1150077BA5F /* GeminiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BF9BFD6020E2D1150077BA5F /* GeminiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF9BFD7020E2D1150077BA5F /* Build configuration list for PBXNativeTarget "GeminiUITests" */;
+			buildPhases = (
+				BF9BFD5D20E2D1150077BA5F /* Sources */,
+				BF9BFD5E20E2D1150077BA5F /* Frameworks */,
+				BF9BFD5F20E2D1150077BA5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF9BFD6320E2D1150077BA5F /* PBXTargetDependency */,
+			);
+			name = GeminiUITests;
+			productName = GeminiUITests;
+			productReference = BF9BFD6120E2D1150077BA5F /* GeminiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BF9BFD3720E2D1130077BA5F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Benjamin Yi";
+				TargetAttributes = {
+					BF9BFD3E20E2D1130077BA5F = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					BF9BFD5520E2D1150077BA5F = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = BF9BFD3E20E2D1130077BA5F;
+					};
+					BF9BFD6020E2D1150077BA5F = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = BF9BFD3E20E2D1130077BA5F;
+					};
+				};
+			};
+			buildConfigurationList = BF9BFD3A20E2D1130077BA5F /* Build configuration list for PBXProject "Gemini" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BF9BFD3620E2D1130077BA5F;
+			productRefGroup = BF9BFD4020E2D1130077BA5F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BF9BFD3E20E2D1130077BA5F /* Gemini */,
+				BF9BFD5520E2D1150077BA5F /* GeminiTests */,
+				BF9BFD6020E2D1150077BA5F /* GeminiUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BF9BFD3D20E2D1130077BA5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF9BFD5020E2D1140077BA5F /* LaunchScreen.storyboard in Resources */,
+				BF9BFD4D20E2D1140077BA5F /* Assets.xcassets in Resources */,
+				BF9BFD4820E2D1130077BA5F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9BFD5420E2D1150077BA5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9BFD5F20E2D1150077BA5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BF9BFD3B20E2D1130077BA5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF9BFD4B20E2D1130077BA5F /* Gemini.xcdatamodeld in Sources */,
+				BF9BFD4520E2D1130077BA5F /* ViewController.swift in Sources */,
+				BF9BFD4320E2D1130077BA5F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9BFD5220E2D1150077BA5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF9BFD5B20E2D1150077BA5F /* GeminiTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9BFD5D20E2D1150077BA5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF9BFD6620E2D1150077BA5F /* GeminiUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BF9BFD5820E2D1150077BA5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF9BFD3E20E2D1130077BA5F /* Gemini */;
+			targetProxy = BF9BFD5720E2D1150077BA5F /* PBXContainerItemProxy */;
+		};
+		BF9BFD6320E2D1150077BA5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF9BFD3E20E2D1130077BA5F /* Gemini */;
+			targetProxy = BF9BFD6220E2D1150077BA5F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BF9BFD4620E2D1130077BA5F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF9BFD4720E2D1130077BA5F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BF9BFD4E20E2D1140077BA5F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF9BFD4F20E2D1140077BA5F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BF9BFD6820E2D1150077BA5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BF9BFD6920E2D1150077BA5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BF9BFD6B20E2D1150077BA5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Gemini/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.Gemini;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BF9BFD6C20E2D1150077BA5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Gemini/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.Gemini;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BF9BFD6E20E2D1150077BA5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GeminiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gemini.app/Gemini";
+			};
+			name = Debug;
+		};
+		BF9BFD6F20E2D1150077BA5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GeminiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gemini.app/Gemini";
+			};
+			name = Release;
+		};
+		BF9BFD7120E2D1150077BA5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GeminiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Gemini;
+			};
+			name = Debug;
+		};
+		BF9BFD7220E2D1150077BA5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GeminiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Gemini;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BF9BFD3A20E2D1130077BA5F /* Build configuration list for PBXProject "Gemini" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF9BFD6820E2D1150077BA5F /* Debug */,
+				BF9BFD6920E2D1150077BA5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF9BFD6A20E2D1150077BA5F /* Build configuration list for PBXNativeTarget "Gemini" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF9BFD6B20E2D1150077BA5F /* Debug */,
+				BF9BFD6C20E2D1150077BA5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF9BFD6D20E2D1150077BA5F /* Build configuration list for PBXNativeTarget "GeminiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF9BFD6E20E2D1150077BA5F /* Debug */,
+				BF9BFD6F20E2D1150077BA5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF9BFD7020E2D1150077BA5F /* Build configuration list for PBXNativeTarget "GeminiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF9BFD7120E2D1150077BA5F /* Debug */,
+				BF9BFD7220E2D1150077BA5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BF9BFD4920E2D1130077BA5F /* Gemini.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BF9BFD4A20E2D1130077BA5F /* Gemini.xcdatamodel */,
+			);
+			currentVersion = BF9BFD4A20E2D1130077BA5F /* Gemini.xcdatamodel */;
+			path = Gemini.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = BF9BFD3720E2D1130077BA5F /* Project object */;
+}
