@@ -17,7 +17,11 @@ class BoardView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tileSet = TileSet.init()
+        
+        let tileWidth: CGFloat = frame.size.width / 16
+        let tileHeight: CGFloat = frame.size.width / 9
+        let tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
+        tileSet = TileSet.init(dimensions: tileDimensions)
     }
     
     required init?(coder aDecoder: NSCoder) {

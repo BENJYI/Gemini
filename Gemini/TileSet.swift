@@ -10,9 +10,9 @@ import UIKit
 
 class TileSet: NSObject {
     
-    var tiles: [String] = []
+    var tiles: [TileView] = []
     
-    override init() {
+    init(dimensions: CGPoint) {
         super.init()
         let suits: [String] = [
             "pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8", "pin9", "bamboo1", "bamboo2", "bamboo3", "bamboo4", "bamboo5", "bamboo6", "bamboo7", "bamboo8", "bamboo9", "man1", "man2", "man3", "man4", "man5", "man6", "man7", "man8", "man9"
@@ -22,16 +22,24 @@ class TileSet: NSObject {
         let dragons: [String] = ["dragon-chun", "dragon-haku", "dragon-green"]
 //        let flowers: [String] = ["flower-1", "flower-2", "flower-3", "flower-4"]
         
-        var tmp: [String] = []
-        
+        var iter = 1
+        // Get x position by using (iter % 16)
+        // get y position by using (iter / 16)
+        // Find CGRect dimensions by using these
         for _ in 1...4 {
-            tmp = tmp + suits + winds + dragons
-        }
-        for _ in 1...8 {
-            tmp.append("flower")
+            for tile in (suits + winds + dragons) {
+                let newTile: TileView = TileView.init(frame: CGRect.init(x: (CGFloat)(iter % 16) * dimensions.x, y: (CGFloat)(iter / 16) * dimensions.y, width: dimensions.x, height: dimensions.y), type: tile, tag: iter + 1000)
+                iter += 1
+                tiles.append(newTile)
+            }
         }
         
-        tiles = tmp
+        for _ in 1...8 {
+            let newTile: TileView = TileView.init(frame: CGRect.init(x: (CGFloat)(iter % 16) * dimensions.x, y: (CGFloat)(iter / 16) * dimensions.y, width: dimensions.x, height: dimensions.y), type: "flower", tag: iter + 1000)
+            iter += 1
+            tiles.append(newTile)
+        }
+        
         randomizeTiles()
     }
     
