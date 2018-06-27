@@ -20,10 +20,10 @@ class BoardView: UIView, TileSetDelegate {
         let tileWidth: CGFloat = frame.size.width / 16
         let tileHeight: CGFloat = frame.size.height / 9
         let tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
-        tileSet = TileSet.init(dimensions: tileDimensions)
-        tileSet!.delegate = self
-        for tile in tileSet!.tiles {
-            addSubview(tile)
+        if tileSet == nil {
+            tileSet = TileSet.init(dimensions: tileDimensions)
+            tileSet!.delegate = self
+            layTiles()
         }
     }
     
@@ -31,8 +31,26 @@ class BoardView: UIView, TileSetDelegate {
         setNeedsLayout()
     }
     
+    func layTiles() {
+        removeTiles()
+        for tile in tileSet!.tiles {
+            addSubview(tile)
+        }
+    }
+    
+    func removeTiles() {
+        for tile in tileSet!.tiles {
+            tile.removeFromSuperview()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("stop calling this")
+        
+        for tile in tileSet!.tiles {
+            addSubview(tile)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
