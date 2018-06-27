@@ -17,8 +17,6 @@ class BoardView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print(superview!.frame.size.height)
-        print(frame.size.height)
         let tileWidth: CGFloat = frame.size.width / 16
         let tileHeight: CGFloat = frame.size.height / 9
         let tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
