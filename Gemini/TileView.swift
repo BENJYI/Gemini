@@ -23,7 +23,7 @@ class TileView: UIView {
         self.type = type
         self.tag = tag
         self.frame = frame
-        
+            
         frameInset = CGPoint.init(x: frame.size.width * 0.1, y: frame.size.height * 0.1)
         tileDimensions = CGPoint.init(x: frame.size.width, y: frame.size.height)
         layer.borderWidth = 0.3
