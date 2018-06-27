@@ -67,26 +67,29 @@ class GameViewController: UIViewController {
             return selectedTag
         }
         
-        var movementThreshold: Int = 0
+        struct Coord {
+            var x: Int
+            var y: Int
+        }
         
-        if fabs(translation.x) > fabs(translation.y) {
-            if translation.x < 0 {
-                movementThreshold = -1 * ((selectedTag - 1001) % 16)
-            } else {
-                movementThreshold = 15 - ((selectedTag - 1001) % 16)
-            }
-            if abs(horizonalShift) >= abs(movementThreshold) {
-                horizonalShift = movementThreshold
-            }
+        var movementThreshold: Coord = Coord.init(x: 0, y: 0)
+
+        if translation.x < 0 {
+            movementThreshold.x = -1 * ((selectedTag - 1001) % 16)
         } else {
-            if translation.y < 0 {
-                movementThreshold = -1 * ((selectedTag - 1001) / 16)
-            } else {
-                movementThreshold =  8 - ((selectedTag - 1001) / 16)
-            }
-            if abs(verticalShift) >= abs(movementThreshold) {
-                verticalShift = movementThreshold
-            }
+            movementThreshold.x = 15 - ((selectedTag - 1001) % 16)
+        }
+        if abs(horizonalShift) >= abs(movementThreshold.x) {
+            horizonalShift = movementThreshold.x
+        }
+        
+        if translation.y < 0 {
+            movementThreshold.y = -1 * ((selectedTag - 1001) / 16)
+        } else {
+            movementThreshold.y =  8 - ((selectedTag - 1001) / 16)
+        }
+        if abs(verticalShift) >= abs(movementThreshold.y) {
+            verticalShift = movementThreshold.y
         }
         
         var translatedTag: Int = selectedTag + horizonalShift + (verticalShift * 16)
