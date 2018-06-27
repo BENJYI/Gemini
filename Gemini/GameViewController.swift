@@ -40,17 +40,18 @@ class GameViewController: UIViewController {
         }
         
         let translation: CGPoint = recognizer.translation(in: view)
-        let panningTile: TileView = view.viewWithTag(panningTag) as! TileView
+        let panningTile: TileView? = (view.viewWithTag(panningTag) as? TileView)
         var newPanningTag = getTagWithTranslation(translation)
         if newPanningTag < 1001 { newPanningTag += 16 }
         else if newPanningTag > 1144 { newPanningTag -= 16 }
         
-        let newPanningTile: TileView! = view.viewWithTag(newPanningTag) as! TileView
-        
-        if newPanningTile != nil && newPanningTag != selectedTag {
-            panningTag = newPanningTag
-            panningTile.enableHighlightedState(false)
-            newPanningTile.enableHighlightedState(true)
+        if let newPanningTile: TileView? = (view.viewWithTag(newPanningTag) as? TileView?)
+        {
+            if newPanningTag != selectedTag {
+                panningTag = newPanningTag
+                panningTile?.enableHighlightedState(false)
+                newPanningTile?.enableHighlightedState(true)
+            }
         }
         
         if recognizer.state == .ended {
