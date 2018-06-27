@@ -15,13 +15,20 @@ class BoardView: UIView {
         super.awakeFromNib()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print(superview!.frame.size.height)
+        print(frame.size.height)
         let tileWidth: CGFloat = frame.size.width / 16
-        let tileHeight: CGFloat = frame.size.width / 9
+        let tileHeight: CGFloat = frame.size.height / 9
         let tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
         tileSet = TileSet.init(dimensions: tileDimensions)
+        for tile in tileSet!.tiles {
+            addSubview(tile)
+        }
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {

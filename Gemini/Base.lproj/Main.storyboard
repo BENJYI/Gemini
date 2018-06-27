@@ -21,7 +21,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4J-5h-z7j" customClass="BoardView" customModule="Gemini" customModuleProvider="target">
                                 <rect key="frame" x="-252" y="22" width="879" height="643"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="X4J-5h-z7j" secondAttribute="height" multiplier="16:11.7" id="2mE-WQ-s0s"/>
                                 </constraints>

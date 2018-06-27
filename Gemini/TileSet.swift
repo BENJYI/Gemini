@@ -22,20 +22,20 @@ class TileSet: NSObject {
         let dragons: [String] = ["dragon-chun", "dragon-haku", "dragon-green"]
 //        let flowers: [String] = ["flower-1", "flower-2", "flower-3", "flower-4"]
         
-        var iter = 1
+        var iter = 0
         // Get x position by using (iter % 16)
         // get y position by using (iter / 16)
         // Find CGRect dimensions by using these
         for _ in 1...4 {
             for tile in (suits + winds + dragons) {
-                let newTile: TileView = TileView.init(frame: CGRect.init(x: (CGFloat)(iter % 16) * dimensions.x, y: (CGFloat)(iter / 16) * dimensions.y, width: dimensions.x, height: dimensions.y), type: tile, tag: iter + 1000)
+                let newTile: TileView = TileView.init(frame: CGRect.init(x: (CGFloat)(iter % 16) * dimensions.x, y: (CGFloat)(iter / 16) * dimensions.y, width: dimensions.x, height: dimensions.y), type: tile, tag: iter + 1001)
                 iter += 1
                 tiles.append(newTile)
             }
         }
         
         for _ in 1...8 {
-            let newTile: TileView = TileView.init(frame: CGRect.init(x: (CGFloat)(iter % 16) * dimensions.x, y: (CGFloat)(iter / 16) * dimensions.y, width: dimensions.x, height: dimensions.y), type: "flower", tag: iter + 1000)
+            let newTile: TileView = TileView.init(frame: CGRect.init(x: (CGFloat)(iter % 16) * dimensions.x, y: (CGFloat)(iter / 16) * dimensions.y, width: dimensions.x, height: dimensions.y), type: "flower", tag: iter + 1001)
             iter += 1
             tiles.append(newTile)
         }
