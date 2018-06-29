@@ -46,7 +46,6 @@ class BoardView: UIView, TileSetDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("stop calling this")
         
         for tile in tileSet!.tiles {
             addSubview(tile)
