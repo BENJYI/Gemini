@@ -21,17 +21,28 @@ class GameViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let selectionArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x, y: boardView!.frame.origin.y, width: boardView!.frame.size.width / 2, height: boardView!.frame.size.height))
-        let selectionGesture = UIPanGestureRecognizer.init(target: self, action: #selector(selectTile))
         
-        selectionArea.addGestureRecognizer(selectionGesture)
-        view.addSubview(selectionArea)
+        // Calculate dimensions here
+        // Gesture dimensions
+        let gestureDim = CGSize.init(width: boardView!.frame.size.width / 2, height: boardView!.frame.size.height)
         
+        // Tile dimensions
         let tileWidth: CGFloat = boardView!.frame.size.width / 16
         let tileHeight: CGFloat = boardView!.frame.size.height / 9
         tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
         
+        let selectionArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
+        let selectionGesture = UIPanGestureRecognizer.init(target: self, action: #selector(selectTile))
+        selectionArea.addGestureRecognizer(selectionGesture)
+        view.addSubview(selectionArea)
+        
+        let movementArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x + gestureDim.width, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
+        let movementGesture = UIPanGestureRecognizer.init(target: self, action: #selector(moveTile))
+        movementArea.addGestureRecognizer(movementGesture)
+        view.addSubview(movementArea)
     }
+    
+    // MARK: tile selection
 
     @objc func selectTile(recognizer: UIPanGestureRecognizer) {
         if recognizer.state == .began {
@@ -98,6 +109,12 @@ class GameViewController: UIViewController {
         if translatedTag > 1144 { translatedTag -= 16 }
         
         return translatedTag;
+    }
+    
+    // MARK: tile movement and matching
+    
+    @objc func moveTile() {
+        
     }
     
     override func didReceiveMemoryWarning() {
