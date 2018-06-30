@@ -37,7 +37,7 @@ class GameViewController: UIViewController {
         view.addSubview(selectionArea)
         
         let movementArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x + gestureDim.width, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
-        let movementGesture = UIPanGestureRecognizer.init(target: self, action: #selector(moveTile))
+        let movementGesture = UITapGestureRecognizer.init(target: self, action: #selector(moveTile))
         movementArea.addGestureRecognizer(movementGesture)
         view.addSubview(movementArea)
     }
@@ -113,9 +113,64 @@ class GameViewController: UIViewController {
     
     // MARK: tile movement and matching
     
-    @objc func moveTile() {
+    @objc func moveTile(recognizer: UITapGestureRecognizer) {
+        // Tile moveement algorithms
         
+        // Matching tile checker
+        // Whereever the new tile location is, check matching up down or right
+        
+        if recognizer.state == .ended {
+            var selectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
+            if let matchingTile: TileView = (getMatch(with: selectedTile)) {
+            } else {
+            }
+        }
     }
+    
+    func getMatch(with tile: TileView) -> TileView? {
+        findTag: for tag in stride(from: tile.tag-16, through: tile.topTag, by: -16) {
+            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
+                if matchingTile?.type == tile.type {
+                    return matchingTile
+                } else {
+                    break findTag
+                }
+            }
+        }
+        
+        findTag: for tag in stride(from: tile.tag+1, through: tile.trailingTag, by: 1) {
+            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
+                if matchingTile?.type == tile.type {
+                    return matchingTile
+                } else {
+                    break findTag
+                }
+            }
+        }
+        
+        findTag: for tag in stride(from: tile.tag+16, through: tile.bottomTag, by: 16) {
+            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
+                if matchingTile?.type == tile.type {
+                    return matchingTile
+                } else {
+                    break findTag
+                }
+            }
+        }
+        
+        findTag: for tag in stride(from: tile.tag-1, through: tile.leadingTag, by: -1) {
+            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
+                if matchingTile?.type == tile.type {
+                    return matchingTile
+                } else {
+                    break findTag
+                }
+            }
+        }
+        
+        // Will eventually need to fix it to return an array of all matches
+        return nil
+    }    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
