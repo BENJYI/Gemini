@@ -8,22 +8,20 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var boardView: BoardView?
     private var selectedTag: Int = 1001
     private var panningTag: Int = 1001
     private var gestureCancelled: Bool = false
     private var tileDimensions: CGPoint?
+    private var scrollView: ShiftingView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
+        view.layoutIfNeeded()
         // Calculate dimensions here
         // Gesture dimensions
+        view.backgroundColor = .clear
         let gestureDim = CGSize.init(width: boardView!.frame.size.width / 2, height: boardView!.frame.size.height)
         
         // Tile dimensions
@@ -37,9 +35,20 @@ class GameViewController: UIViewController {
         view.addSubview(selectionArea)
         
         let movementArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x + gestureDim.width, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
-        let movementGesture = UITapGestureRecognizer.init(target: self, action: #selector(moveTile))
+        let movementGesture = UIPanGestureRecognizer.init(target: self, action: #selector(moveTile))
         movementArea.addGestureRecognizer(movementGesture)
         view.addSubview(movementArea)
+        
+        // Scrollview instantiation
+        scrollView = ShiftingView.init(frame: boardView!.frame)
+        scrollView?.delegate = self
+        scrollView?.contentSize = self.scrollView!.frame.size
+        view.addSubview(scrollView!)
+        scrollView?.isUserInteractionEnabled = false
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     // MARK: tile selection
@@ -113,18 +122,133 @@ class GameViewController: UIViewController {
     
     // MARK: tile movement and matching
     
-    @objc func moveTile(recognizer: UITapGestureRecognizer) {
+    @objc func moveTile(recognizer: UIPanGestureRecognizer) {
         // Tile moveement algorithms
+        
+//        if (!(TileView *)[self viewWithTag:selectedTileTag]) {
+//            return;
+//        }
+
+        var rowTiles: [TileView] = []
+        
+        if recognizer.state == .began {
+            let velocity: CGPoint = recognizer.velocity(in: view)
+            var vectorDirection: Int = 0
+            
+            if fabs(velocity.x) > fabs(velocity.y) {
+                scrollView!.direction = velocity.x > 0 ? "left" : "right"
+                vectorDirection = Int(CGFloat(velocity.x) / fabs(velocity.x))
+            } else {
+                scrollView!.direction = velocity.y > 0 ? "up" : "down"
+                vectorDirection = Int(CGFloat(velocity.y) / fabs(velocity.y))
+            }
+            scrollView!.vectorDirection = vectorDirection
+            for tile in getScrollableTiles() {
+                tile.removeFromSuperview()
+                scrollView!.shiftingTiles.append(tile)
+                scrollView!.addSubview(tile)
+                print(tile.type!, tile.tag)
+                print(scrollView!.shiftingTiles.count)
+            }
+        }
+        
+        let translation: CGPoint = recognizer.translation(in: view)
+        var offset: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
+        
+        if scrollView!.isHorizontal() {
+            offset.x = (-1)*translation.x
+            offset.y = 0
+        } else {
+            offset.x = 0
+            offset.y = (-1)*translation.y
+        }
+        
+        scrollView?.contentOffset = offset
+        
+        // -------------------------------------------------------------------------
+        // ----- REPEATED CODE FIX THIS --------------------------------------------
+        // ----- (check in updateTiles) --------------------------------------------
+        // -------------------------------------------------------------------------
+        var panDistance:  CGFloat = 0.0
+        var length:       CGFloat = 0.0
+        var tagIncrement: Int     = 0
+        
+        if scrollView!.isHorizontal() {
+            panDistance = (-1)*scrollView!.contentOffset.x;
+            length = tileDimensions!.x;
+            tagIncrement = 1;
+        } else {
+            panDistance = (-1)*scrollView!.contentOffset.y;
+            length = tileDimensions!.y;
+            tagIncrement = 16;
+        }
+        
+        let tileOffset: CGFloat = round(panDistance / length)
+        let tempTag: Int = Int(tileOffset * CGFloat(tagIncrement) + CGFloat(selectedTag))
         
         // Matching tile checker
         // Whereever the new tile location is, check matching up down or right
         
         if recognizer.state == .ended {
-            var selectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
-            if let matchingTile: TileView = (getMatch(with: selectedTile)) {
-            } else {
+            for tile in scrollView!.shiftingTiles {
+                print(tile.tag, tile.type!)
+                tile.removeFromSuperview()
+                boardView!.addSubview(tile)
             }
         }
+    }
+    
+    func sendTiles(_ tiles: [TileView]) {
+        for tile in tiles {
+            tile.removeFromSuperview()
+            scrollView!.shiftingTiles.append(tile)
+        }
+    }
+    func getScrollableTiles() -> [TileView] {
+        var tiles: [TileView] = []
+        let selectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
+        tiles.append(selectedTile)
+        
+        var increment: Int = 0
+        var limit: Int = 0
+        
+        if scrollView!.isHorizontal() {
+            increment = 1
+            if scrollView!.vectorDirection < 0 {
+                increment = (-1)*increment
+                limit = selectedTile.leadingTag
+            } else {
+                limit = selectedTile.trailingTag
+            }
+        } else {
+            increment = 16
+            if scrollView!.vectorDirection < 0 {
+                increment = (-1)*increment
+                limit = selectedTile.topTag
+            } else {
+                limit = selectedTile.bottomTag
+            }
+        }
+        
+        var emptyTiles: Int = 0
+        
+        for tag in stride(from: selectedTile.tag+increment, through: limit, by: increment) {
+            var tile: TileView? = view.viewWithTag(tag) as! TileView?
+            if tile != nil {
+                tiles.append(tile!)
+            } else {
+                var itag = tag
+                while tile == nil && itag != limit + increment {
+                    emptyTiles += 1
+                    itag += increment
+                    tile = view.viewWithTag(tag) as? TileView
+                }
+                break
+            }
+        }
+        
+        scrollView!.setPanLimits(with: emptyTiles, withDimesions: tileDimensions!)
+        return tiles
     }
     
     func getMatch(with tile: TileView) -> TileView? {
