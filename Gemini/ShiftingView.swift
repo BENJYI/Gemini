@@ -41,6 +41,28 @@ class ShiftingView: UIScrollView {
         maxLimit = vectorDirection > 0 ? CGFloat(emptyTiles) * length : 0.0
     }
     
+    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
+        // Offset on an axis is the inverse of a pan translation
+        //   - A negative offset indicates a movement down or to the right
+        //   - A positive offset indicates a movement up or to the left
+        var offset = isHorizontal() ? contentOffset.x : contentOffset.y
+        if offset > 0 {
+            if minLimit == 0 {
+                offset = 0
+            } else if offset > minLimit {
+                offset = minLimit
+            }
+        } else {
+            if maxLimit == 0 {
+                offset = 0
+            } else if offset < (-1)*maxLimit {
+                offset = (-1)*maxLimit
+            }
+        }
+        let newOffset: CGPoint = isHorizontal() ? CGPoint.init(x: offset, y: 0) : CGPoint.init(x: 0, y: offset)
+        super.setContentOffset(newOffset, animated: animated)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

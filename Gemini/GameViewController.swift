@@ -147,8 +147,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
                 tile.removeFromSuperview()
                 scrollView!.shiftingTiles.append(tile)
                 scrollView!.addSubview(tile)
-                print(tile.type!, tile.tag)
-                print(scrollView!.shiftingTiles.count)
             }
         }
         
@@ -163,7 +161,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             offset.y = (-1)*translation.y
         }
         
-        scrollView?.contentOffset = offset
+        scrollView?.setContentOffset(offset, animated: false)
         
         // -------------------------------------------------------------------------
         // ----- REPEATED CODE FIX THIS --------------------------------------------
