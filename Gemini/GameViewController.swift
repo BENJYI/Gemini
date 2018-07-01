@@ -125,11 +125,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     @objc func moveTile(recognizer: UIPanGestureRecognizer) {
         // Tile moveement algorithms
         
-//        if (!(TileView *)[self viewWithTag:selectedTileTag]) {
-//            return;
-//        }
-
-        var rowTiles: [TileView] = []
+        // TODO: fix this temporary fix that returns if there is no selected tile
+        let existingTile: TileView? = view.viewWithTag(selectedTag) as! TileView?
+        if existingTile == nil {
+            return
+        }
+        
+        var moveableTiles: [TileView] = []
         
         if recognizer.state == .began {
             let velocity: CGPoint = recognizer.velocity(in: view)
@@ -143,7 +145,9 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
                 vectorDirection = Int(CGFloat(velocity.y) / fabs(velocity.y))
             }
             scrollView!.vectorDirection = vectorDirection
+            
             for tile in getScrollableTiles() {
+                moveableTiles.append(tile)
                 tile.removeFromSuperview()
                 scrollView!.shiftingTiles.append(tile)
                 scrollView!.addSubview(tile)
@@ -161,7 +165,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             offset.y = (-1)*translation.y
         }
         
-        scrollView?.setContentOffset(offset, animated: false)
+        scrollView!.setContentOffset(offset, animated: false)
         
         // -------------------------------------------------------------------------
         // ----- REPEATED CODE FIX THIS --------------------------------------------
@@ -183,25 +187,25 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         
         let tileOffset: CGFloat = round(panDistance / length)
         let tempTag: Int = Int(tileOffset * CGFloat(tagIncrement) + CGFloat(selectedTag))
-        
+        print(tempTag)
         // Matching tile checker
         // Whereever the new tile location is, check matching up down or right
         
         if recognizer.state == .ended {
-            for tile in scrollView!.shiftingTiles {
-                print(tile.tag, tile.type!)
-                tile.removeFromSuperview()
-                boardView!.addSubview(tile)
+            if let matchingTile: TileView = (getMatch(with: tempTag)) {
+                updateTiles(moveableTiles)
+                // matchTile(with: selectedTile)
+                let newSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
+                matchingTile.removeFromSuperview()
+                newSelectedTile.removeFromSuperview()
+                
+            } else {
+                scrollView!.contentOffset = CGPoint.init(x: 0.0, y: 0.0)
+                returnTiles()
             }
         }
     }
     
-    func sendTiles(_ tiles: [TileView]) {
-        for tile in tiles {
-            tile.removeFromSuperview()
-            scrollView!.shiftingTiles.append(tile)
-        }
-    }
     func getScrollableTiles() -> [TileView] {
         var tiles: [TileView] = []
         let selectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
@@ -249,10 +253,11 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         return tiles
     }
     
-    func getMatch(with tile: TileView) -> TileView? {
+    func getMatch(with tempTag: Int, type: String) -> TileView? {
+        let tile: TileView = view.viewWithTag(tempTag) as! TileView
         findTag: for tag in stride(from: tile.tag-16, through: tile.topTag, by: -16) {
             if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
-                if matchingTile?.type == tile.type {
+                if matchingTile?.type == type {
                     return matchingTile
                 } else {
                     break findTag
@@ -292,7 +297,46 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         
         // Will eventually need to fix it to return an array of all matches
         return nil
-    }    
+    }
+    
+    func updateTiles(_ tiles: [TileView]) {
+        var panDistance: CGFloat = 0.0
+        var length: CGFloat = 0.0
+        var tagIncrement: Int = 0
+        
+        if (scrollView!.isHorizontal()) {
+            panDistance = (-1)*scrollView!.contentOffset.x
+            length = tileDimensions!.x
+            tagIncrement = 1
+        } else {
+            panDistance = (-1)*scrollView!.contentOffset.y
+            length = tileDimensions!.y
+            tagIncrement = 16
+        }
+        
+        let tileOffset: CGFloat = round(panDistance / length)
+        scrollView!.contentOffset = CGPoint.init(x: 0.0, y: 0.0)
+        for tile in scrollView!.shiftingTiles {
+            var newCenter: CGPoint?
+            if scrollView!.isHorizontal() {
+                newCenter = CGPoint.init(x: tile.center.x + (tileOffset * length), y: tile.center.y)
+            } else {
+                newCenter = CGPoint.init(x: tile.center.x, y: tile.center.y + (tileOffset * length))
+            }
+            tile.tag += Int(tileOffset * CGFloat(tagIncrement))
+            tile.center = newCenter!
+        }
+        returnTiles()
+        selectedTag += Int(tileOffset * CGFloat(tagIncrement))
+    }
+    
+    func returnTiles() {
+        for tile in scrollView!.shiftingTiles {
+            tile.removeFromSuperview()
+            boardView!.addSubview(tile)
+        }
+        scrollView!.shiftingTiles = []
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

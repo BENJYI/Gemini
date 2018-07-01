@@ -10,7 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Gemini/GameViewController.swift"
+<<<<<<< Updated upstream
             timestampString = "552173146.658918"
+=======
+            timestampString = "552172122.132091"
+>>>>>>> Stashed changes
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "266"
@@ -26,7 +30,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Gemini/GameViewController.swift"
+<<<<<<< Updated upstream
             timestampString = "552173146.659423"
+=======
+            timestampString = "552172122.1329041"
+>>>>>>> Stashed changes
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "259"
