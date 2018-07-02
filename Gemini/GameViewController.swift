@@ -152,6 +152,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
                 scrollView!.shiftingTiles.append(tile)
                 scrollView!.addSubview(tile)
             }
+            print(moveableTiles.count)
         }
         
         let translation: CGPoint = recognizer.translation(in: view)
@@ -187,18 +188,19 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         
         let tileOffset: CGFloat = round(panDistance / length)
         let tempTag: Int = Int(tileOffset * CGFloat(tagIncrement) + CGFloat(selectedTag))
-        print(tempTag)
         // Matching tile checker
         // Whereever the new tile location is, check matching up down or right
         
         if recognizer.state == .ended {
-            if let matchingTile: TileView = (getMatch(with: tempTag)) {
+            let currentSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
+            print(currentSelectedTile.tileTag!.val)
+            if let matchingTile: TileView = (getMatch(with: TileTag(tempTag), type: currentSelectedTile.type!)) {
                 updateTiles(moveableTiles)
                 // matchTile(with: selectedTile)
                 let newSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
+                print(newSelectedTile.tileTag!.val)
                 matchingTile.removeFromSuperview()
-                newSelectedTile.removeFromSuperview()
-                
+                currentSelectedTile.removeFromSuperview()
             } else {
                 scrollView!.contentOffset = CGPoint.init(x: 0.0, y: 0.0)
                 returnTiles()
@@ -253,48 +255,62 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         return tiles
     }
     
-    func getMatch(with tempTag: Int, type: String) -> TileView? {
-        let tile: TileView = view.viewWithTag(tempTag) as! TileView
-        findTag: for tag in stride(from: tile.tag-16, through: tile.topTag, by: -16) {
-            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
-                if matchingTile?.type == type {
-                    return matchingTile
-                } else {
-                    break findTag
-                }
-            }
+    func getMatch(with tempTag: TileTag, type: String) -> TileView? {
+        var increment: Int = -16
+        var currVal: Int = tempTag.val
+        
+        var matchingTile: TileView? = nil
+        while matchingTile == nil && currVal + increment >= tempTag.top && scrollView!.direction != "up" {
+            currVal += increment
+            matchingTile = view.viewWithTag(currVal) as! TileView?
         }
         
-        findTag: for tag in stride(from: tile.tag+1, through: tile.trailingTag, by: 1) {
-            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
-                if matchingTile?.type == tile.type {
-                    return matchingTile
-                } else {
-                    break findTag
-                }
-            }
+        if matchingTile?.type == type {
+            print(matchingTile!.type!, "==", type, "@top")
+            return matchingTile
         }
         
-        findTag: for tag in stride(from: tile.tag+16, through: tile.bottomTag, by: 16) {
-            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
-                if matchingTile?.type == tile.type {
-                    return matchingTile
-                } else {
-                    break findTag
-                }
-            }
+        increment = 1
+        currVal = tempTag.val
+        
+        matchingTile = nil
+        while matchingTile == nil && currVal + increment <= tempTag.trailing && scrollView!.direction != "right" {
+            currVal += increment
+            matchingTile = view.viewWithTag(currVal) as! TileView?
         }
         
-        findTag: for tag in stride(from: tile.tag-1, through: tile.leadingTag, by: -1) {
-            if let matchingTile: TileView? = (view.viewWithTag(tag) as? TileView?) {
-                if matchingTile?.type == tile.type {
-                    return matchingTile
-                } else {
-                    break findTag
-                }
-            }
+        if matchingTile?.type == type {
+            print(matchingTile!.type!, "==", type, "@right")
+            return matchingTile
         }
         
+        increment = 16
+        currVal = tempTag.val
+        
+        matchingTile = nil
+        while matchingTile == nil && currVal + increment <= tempTag.bottom && scrollView!.direction != "down" {
+            currVal += increment
+            matchingTile = view.viewWithTag(currVal) as! TileView?
+        }
+        
+        if matchingTile?.type == type {
+            print(matchingTile!.type!, "==", type, "@bottom")
+            return matchingTile
+        }
+        
+        increment = -1
+        currVal = tempTag.val
+        
+        matchingTile = nil
+        while matchingTile == nil && currVal + increment >= tempTag.leading && scrollView!.direction != "left" {
+            currVal += increment
+            matchingTile = view.viewWithTag(currVal) as! TileView?
+        }
+        
+        if matchingTile?.type == type {
+            print(matchingTile!.type, "==", type, "@left")
+            return matchingTile
+        }
         // Will eventually need to fix it to return an array of all matches
         return nil
     }

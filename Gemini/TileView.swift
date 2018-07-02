@@ -16,12 +16,14 @@ class TileView: UIView {
     var type: String?
     var frameInset: CGPoint?
     var tileDimensions: CGPoint?
+    var tileTag: TileTag?
     weak var delegate: TileViewDelegate?
     
     init(frame: CGRect, type: String, tag: Int) {
         super.init(frame: frame)
         self.type = type
         self.tag = tag
+        self.tileTag = TileTag(tag)
         self.frame = frame
             
         frameInset = CGPoint.init(x: frame.size.width * 0.1, y: frame.size.height * 0.1)
