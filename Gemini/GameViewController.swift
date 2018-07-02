@@ -152,7 +152,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
                 scrollView!.shiftingTiles.append(tile)
                 scrollView!.addSubview(tile)
             }
-            print(moveableTiles.count)
         }
         
         let translation: CGPoint = recognizer.translation(in: view)
@@ -193,12 +192,9 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         
         if recognizer.state == .ended {
             let currentSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
-            print(currentSelectedTile.tileTag!.val)
             if let matchingTile: TileView = (getMatch(with: TileTag(tempTag), type: currentSelectedTile.type!)) {
                 updateTiles(moveableTiles)
                 // matchTile(with: selectedTile)
-                let newSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
-                print(newSelectedTile.tileTag!.val)
                 matchingTile.removeFromSuperview()
                 currentSelectedTile.removeFromSuperview()
             } else {
@@ -266,7 +262,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         
         if matchingTile?.type == type {
-            print(matchingTile!.type!, "==", type, "@top")
             return matchingTile
         }
         
@@ -280,7 +275,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         
         if matchingTile?.type == type {
-            print(matchingTile!.type!, "==", type, "@right")
             return matchingTile
         }
         
@@ -294,7 +288,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         
         if matchingTile?.type == type {
-            print(matchingTile!.type!, "==", type, "@bottom")
             return matchingTile
         }
         
@@ -308,7 +301,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         
         if matchingTile?.type == type {
-            print(matchingTile!.type, "==", type, "@left")
             return matchingTile
         }
         // Will eventually need to fix it to return an array of all matches
