@@ -241,7 +241,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
                 while tile == nil && itag != limit + increment {
                     emptyTiles += 1
                     itag += increment
-                    tile = view.viewWithTag(tag) as? TileView
+                    tile = view.viewWithTag(itag) as? TileView
                 }
                 break
             }
