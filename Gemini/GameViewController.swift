@@ -12,7 +12,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var boardView: BoardView?
     private var selectedTag: Int = 1001
     private var panningTag: Int = 1001
-    private var gestureCancelled: Bool = false
     private var tileDimensions: CGPoint?
     private var scrollView: ShiftingView?
 
@@ -56,22 +55,17 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     @objc func selectTile(recognizer: UIPanGestureRecognizer) {
         if recognizer.state == .began {
             panningTag = selectedTag
-            gestureCancelled = false
         }
         
         let translation: CGPoint = recognizer.translation(in: view)
         let panningTile: TileView? = (view.viewWithTag(panningTag) as? TileView)
         var newPanningTag = getTagWithTranslation(translation)
-        if newPanningTag < 1001 { newPanningTag += 16 }
-        else if newPanningTag > 1144 { newPanningTag -= 16 }
         
         if let newPanningTile: TileView? = (view.viewWithTag(newPanningTag) as? TileView?)
         {
-            if newPanningTag != selectedTag {
-                panningTag = newPanningTag
-                panningTile?.enableHighlightedState(false)
-                newPanningTile?.enableHighlightedState(true)
-            }
+            panningTag = newPanningTag
+            panningTile?.enableHighlightedState(false)
+            newPanningTile?.enableHighlightedState(true)
         }
         
         if recognizer.state == .ended {
@@ -113,9 +107,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         
         var translatedTag: Int = selectedTag + horizonalShift + (verticalShift * 16)
-        
-        if translatedTag < 1001 { translatedTag += 16 }
-        if translatedTag > 1144 { translatedTag -= 16 }
         
         return translatedTag;
     }
