@@ -74,8 +74,9 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func getTagWithTranslation(_ translation: CGPoint) -> Int {
-        var horizonalShift: Int = Int((translation.x * 1.5) / tileDimensions!.x)
-        var verticalShift: Int = Int((translation.y * 1.5) / tileDimensions!.y)
+        let SPEED_MULTIPLIER: CGFloat = 2.0
+        var horizonalShift: Int = Int((translation.x * SPEED_MULTIPLIER) / tileDimensions!.x)
+        var verticalShift: Int = Int((translation.y * SPEED_MULTIPLIER) / tileDimensions!.y)
         
         if horizonalShift == 0 && verticalShift == 0 {
             return selectedTag
