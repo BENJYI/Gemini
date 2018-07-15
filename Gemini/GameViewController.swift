@@ -14,6 +14,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     private var panningTag: Int = 1001
     private var tileDimensions: CGPoint?
     private var scrollView: ShiftingView?
+    private var trans: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +56,12 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     @objc func selectTile(recognizer: UIPanGestureRecognizer) {
         if recognizer.state == .began {
             panningTag = selectedTag
+            trans.x = 0.0
+            trans.y = 0.0
         }
         
-        let translation: CGPoint = recognizer.translation(in: view)
         let panningTile: TileView? = (view.viewWithTag(panningTag) as? TileView)
-        var newPanningTag = getTagWithTranslation(translation)
+        var newPanningTag = getTagWithTranslation(recognizer)
         
         if let newPanningTile: TileView? = (view.viewWithTag(newPanningTag) as? TileView?)
         {
@@ -73,43 +75,27 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    func getTagWithTranslation(_ translation: CGPoint) -> Int {
-        let SPEED_MULTIPLIER: CGFloat = 2.0
-        var horizonalShift: Int = Int((translation.x * SPEED_MULTIPLIER) / tileDimensions!.x)
-        var verticalShift: Int = Int((translation.y * SPEED_MULTIPLIER) / tileDimensions!.y)
+    func getTagWithTranslation(_ recognizer: UIPanGestureRecognizer) -> Int {
+        let SPEED_MULTIPLIER: CGFloat = 5.0
+        let translation = recognizer.translation(in: view)
+        var translatedTag: TileTag = TileTag(panningTag)
+        trans.x += translation.x * SPEED_MULTIPLIER
+        trans.y += translation.y * SPEED_MULTIPLIER
         
-        if horizonalShift == 0 && verticalShift == 0 {
-            return selectedTag
+        if abs(trans.x) >= tileDimensions!.x {
+            let shift = Int(abs(trans.x) / trans.x)
+            if translatedTag.val + shift <= translatedTag.trailing && translatedTag.val + shift >= translatedTag.leading { translatedTag.val += shift }
+            trans.x = 0.0
+        }
+        if abs(trans.y) >= tileDimensions!.y {
+            let shift = Int(abs(trans.y) / trans.y) * 16
+            if translatedTag.val + shift <= translatedTag.bottom && translatedTag.val +  shift >= translatedTag.top { translatedTag.val += shift }
+            trans.y = 0.0
         }
         
-        struct Coord {
-            var x: Int
-            var y: Int
-        }
+        recognizer.setTranslation(CGPoint.init(x: 0.0, y: 0.0), in: view)
         
-        var movementThreshold: Coord = Coord.init(x: 0, y: 0)
-
-        if translation.x < 0 {
-            movementThreshold.x = -1 * ((selectedTag - 1001) % 16)
-        } else {
-            movementThreshold.x = 15 - ((selectedTag - 1001) % 16)
-        }
-        if abs(horizonalShift) >= abs(movementThreshold.x) {
-            horizonalShift = movementThreshold.x
-        }
-        
-        if translation.y < 0 {
-            movementThreshold.y = -1 * ((selectedTag - 1001) / 16)
-        } else {
-            movementThreshold.y =  8 - ((selectedTag - 1001) / 16)
-        }
-        if abs(verticalShift) >= abs(movementThreshold.y) {
-            verticalShift = movementThreshold.y
-        }
-        
-        var translatedTag: Int = selectedTag + horizonalShift + (verticalShift * 16)
-        
-        return translatedTag;
+        return translatedTag.val;
     }
     
     // MARK: tile movement and matching
