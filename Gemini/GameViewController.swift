@@ -45,6 +45,11 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         scrollView?.contentSize = self.scrollView!.frame.size
         view.addSubview(scrollView!)
         scrollView?.isUserInteractionEnabled = false
+        
+        if let tile = (view.viewWithTag(selectedTag) as! TileView?) {
+            tile.enableHighlightedState(true)
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,13 +89,40 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         
         if abs(trans.x) >= tileDimensions!.x {
             let shift = Int(abs(trans.x) / trans.x)
-            if translatedTag.val + shift <= translatedTag.trailing && translatedTag.val + shift >= translatedTag.leading { translatedTag.val += shift }
-            trans.x = 0.0
+            var foundTile = false
+            var inx = 1
+            while !foundTile {
+                if translatedTag.val + (shift * inx) <= translatedTag.trailing && translatedTag.val + (shift * inx) >= translatedTag.leading {
+                    if view.viewWithTag(translatedTag.val + (shift * inx)) != nil {
+                        translatedTag.val += shift * inx
+                        foundTile = true
+                    } else {
+                        inx += 1
+                    }
+                } else {
+                    foundTile = true
+                }
+            }
+            trans.x = (trans.x).truncatingRemainder(dividingBy: tileDimensions!.x)
         }
+        
         if abs(trans.y) >= tileDimensions!.y {
             let shift = Int(abs(trans.y) / trans.y) * 16
-            if translatedTag.val + shift <= translatedTag.bottom && translatedTag.val +  shift >= translatedTag.top { translatedTag.val += shift }
-            trans.y = 0.0
+            var foundTile = false
+            var inx = 1
+            while !foundTile {
+                if translatedTag.val + (shift * inx) <= translatedTag.bottom && translatedTag.val + (shift * inx) >= translatedTag.top {
+                    if view.viewWithTag(translatedTag.val + (shift * inx)) != nil {
+                        translatedTag.val += shift * inx
+                        foundTile = true
+                    } else {
+                        inx += 1
+                    }
+                } else {
+                    foundTile = true
+                }
+            }
+            trans.y = (trans.y).truncatingRemainder(dividingBy: tileDimensions!.y)
         }
         
         recognizer.setTranslation(CGPoint.init(x: 0.0, y: 0.0), in: view)
@@ -154,13 +186,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         var tagIncrement: Int     = 0
         
         if scrollView!.isHorizontal() {
-            panDistance = (-1)*scrollView!.contentOffset.x;
-            length = tileDimensions!.x;
-            tagIncrement = 1;
+            panDistance = (-1)*scrollView!.contentOffset.x
+            length = tileDimensions!.x
+            tagIncrement = 1
         } else {
-            panDistance = (-1)*scrollView!.contentOffset.y;
-            length = tileDimensions!.y;
-            tagIncrement = 16;
+            panDistance = (-1)*scrollView!.contentOffset.y
+            length = tileDimensions!.y
+            tagIncrement = 16
         }
         
         let tileOffset: CGFloat = round(panDistance / length)

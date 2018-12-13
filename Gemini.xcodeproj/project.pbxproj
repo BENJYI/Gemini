@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF2F2B0F20E97BA4005B000F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F2B0E20E97BA4005B000F /* Constants.swift */; };
+		BF3B4EEA20FFF4DF007E90DA /* sparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = BF3B4EE920FFF4DF007E90DA /* sparkle.sks */; };
 		BF6F1E3020E2DCE400551D26 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F1E2F20E2DCE400551D26 /* BoardView.swift */; };
 		BF6F1E3220E2DCF300551D26 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F1E3120E2DCF300551D26 /* TileView.swift */; };
 		BF6F1E3420E2DD0D00551D26 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F1E3320E2DD0D00551D26 /* TileSet.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		BF2F2B0E20E97BA4005B000F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BF3B4EE920FFF4DF007E90DA /* sparkle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sparkle.sks; sourceTree = "<group>"; };
 		BF6F1E2F20E2DCE400551D26 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		BF6F1E3120E2DCF300551D26 /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 		BF6F1E3320E2DD0D00551D26 /* TileSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				BF6F1E3120E2DCF300551D26 /* TileView.swift */,
 				BF9BFD4620E2D1130077BA5F /* Main.storyboard */,
 				BF9BFD4C20E2D1140077BA5F /* Assets.xcassets */,
+				BF3B4EE920FFF4DF007E90DA /* sparkle.sks */,
 				BF9BFD4E20E2D1140077BA5F /* LaunchScreen.storyboard */,
 				BF9BFD5120E2D1140077BA5F /* Info.plist */,
 				BF9BFD4920E2D1130077BA5F /* Gemini.xcdatamodeld */,
@@ -250,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF3B4EEA20FFF4DF007E90DA /* sparkle.sks in Resources */,
 				BF9BFD5020E2D1140077BA5F /* LaunchScreen.storyboard in Resources */,
 				BF9BFD4D20E2D1140077BA5F /* Assets.xcassets in Resources */,
 				BF9BFD4820E2D1130077BA5F /* Main.storyboard in Resources */,
