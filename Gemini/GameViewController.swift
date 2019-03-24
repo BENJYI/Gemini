@@ -21,7 +21,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         view.layoutIfNeeded()
         // Calculate dimensions here
         // Gesture dimensions
-        view.backgroundColor = .clear
+        view.layer.contents = UIImage(named: "gemini-bg")!.cgImage
         let gestureDim = CGSize.init(width: boardView!.frame.size.width / 2, height: boardView!.frame.size.height)
         
         // Tile dimensions

@@ -20,6 +20,7 @@ class BoardView: UIView, TileSetDelegate {
         let tileWidth: CGFloat = frame.size.width / 16
         let tileHeight: CGFloat = frame.size.height / 9
         let tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
+        backgroundColor = UIColor.init(red: 231.0/255.0, green: 231.0/255.0, blue: 227.0/255.0, alpha: 1.0)
         if tileSet == nil {
             tileSet = TileSet.init(dimensions: tileDimensions)
             tileSet!.delegate = self
