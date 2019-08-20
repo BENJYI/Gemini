@@ -66,7 +66,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         
         let panningTile: TileView? = (view.viewWithTag(panningTag) as? TileView)
-        var newPanningTag = getTagWithTranslation(recognizer)
+        let newPanningTag = getTagWithTranslation(recognizer)
         
         if let newPanningTile: TileView? = (view.viewWithTag(newPanningTag) as? TileView?)
         {
