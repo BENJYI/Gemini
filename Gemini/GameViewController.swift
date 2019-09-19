@@ -9,7 +9,7 @@
 import UIKit
 
 class GameViewController: UIViewController, UIScrollViewDelegate {
-    @IBOutlet weak var boardView: BoardView?
+    private var boardView: BoardView!
     private var selectedTag: Int = 1001
     private var panningTag: Int = 1001
     private var tileDimensions: CGPoint?
@@ -22,29 +22,41 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         // Calculate dimensions here
         // Gesture dimensions
         view.layer.contents = UIImage(named: "gemini-bg")!.cgImage
-        let gestureDim = CGSize.init(width: boardView!.frame.size.width / 2, height: boardView!.frame.size.height)
         
         // Tile dimensions
-        let tileWidth: CGFloat = boardView!.frame.size.width / 16
-        let tileHeight: CGFloat = boardView!.frame.size.height / 9
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let bvh: CGFloat = screenHeight
+        let bvw: CGFloat = bvh * (16.0/11.7)
+        let bvx: CGFloat = (screenWidth / 2) - (bvw / 2)
+        let bvy: CGFloat = 0.0
+        print(screenWidth, screenHeight, bvw, bvh)
+        boardView = BoardView.init(frame: CGRect.init(x: bvx, y: bvy, width: bvw, height: bvh))
+        let gestureDim = CGSize.init(width: boardView.frame.size.width / 2, height: boardView.frame.size.height)
+        let tileWidth: CGFloat = boardView.frame.size.width / 16
+        let tileHeight: CGFloat = boardView.frame.size.height / 9
         tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
         
-        let selectionArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
+        let selectionArea = UIView.init(frame: CGRect.init(x: boardView.frame.origin.x, y: boardView.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
         let selectionGesture = UIPanGestureRecognizer.init(target: self, action: #selector(selectTile))
         selectionArea.addGestureRecognizer(selectionGesture)
-        view.addSubview(selectionArea)
         
-        let movementArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x + gestureDim.width, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
+        
+        let movementArea = UIView.init(frame: CGRect.init(x: boardView.frame.origin.x + gestureDim.width, y: boardView.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
         let movementGesture = UIPanGestureRecognizer.init(target: self, action: #selector(moveTile))
         movementArea.addGestureRecognizer(movementGesture)
-        view.addSubview(movementArea)
+        
         
         // Scrollview instantiation
-        scrollView = ShiftingView.init(frame: boardView!.frame)
+        scrollView = ShiftingView.init(frame: boardView.frame)
         scrollView?.delegate = self
         scrollView?.contentSize = self.scrollView!.frame.size
-        view.addSubview(scrollView!)
         scrollView?.isUserInteractionEnabled = false
+        
+        view.addSubview(boardView)
+        view.addSubview(scrollView!)
+        view.addSubview(selectionArea)
+        view.addSubview(movementArea)
         
         if let tile = (view.viewWithTag(selectedTag) as! TileView?) {
             tile.enableHighlightedState(true)
@@ -351,7 +363,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     func returnTiles() {
         for tile in scrollView!.shiftingTiles {
             tile.removeFromSuperview()
-            boardView!.addSubview(tile)
+            boardView.addSubview(tile)
         }
         scrollView!.shiftingTiles = []
     }
