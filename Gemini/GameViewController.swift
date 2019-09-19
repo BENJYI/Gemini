@@ -147,12 +147,12 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             let velocity: CGPoint = recognizer.velocity(in: view)
             var vectorDirection: Int = 0
             
-            if fabs(velocity.x) > fabs(velocity.y) {
+            if abs(velocity.x) > abs(velocity.y) {
                 scrollView!.direction = velocity.x > 0 ? "left" : "right"
-                vectorDirection = Int(CGFloat(velocity.x) / fabs(velocity.x))
+                vectorDirection = Int(CGFloat(velocity.x) / abs(velocity.x))
             } else {
                 scrollView!.direction = velocity.y > 0 ? "up" : "down"
-                vectorDirection = Int(CGFloat(velocity.y) / fabs(velocity.y))
+                vectorDirection = Int(CGFloat(velocity.y) / abs(velocity.y))
             }
             scrollView!.vectorDirection = vectorDirection
             

@@ -38,7 +38,7 @@ class TileView: UIView {
         layer.shadowOpacity = 0.0
         
         let imageView = UIImageView.init(image: UIImage.init(named: type))
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         
@@ -62,7 +62,7 @@ class TileView: UIView {
             frame = frame.insetBy(dx: -frameInset.x, dy: -frameInset.y)
             layer.borderWidth = 0.9
             layer.shadowOpacity = 0.8
-            superview?.bringSubview(toFront: self)
+            superview?.bringSubviewToFront(self)
         } else {
             frame = frame.insetBy(dx: frameInset.x, dy: frameInset.y)
             layer.borderWidth = 0.0

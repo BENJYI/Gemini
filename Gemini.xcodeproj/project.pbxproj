@@ -214,13 +214,16 @@
 				TargetAttributes = {
 					BF9BFD3E20E2D1130077BA5F = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1030;
 					};
 					BF9BFD5520E2D1150077BA5F = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1030;
 						TestTargetID = BF9BFD3E20E2D1130077BA5F;
 					};
 					BF9BFD6020E2D1150077BA5F = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1030;
 						TestTargetID = BF9BFD3E20E2D1130077BA5F;
 					};
 				};
@@ -466,7 +469,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.Gemini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -483,7 +486,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.Gemini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -502,7 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gemini.app/Gemini";
 			};
@@ -522,7 +525,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gemini.app/Gemini";
 			};
@@ -541,7 +544,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Gemini;
 			};
@@ -560,7 +563,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.komodoro.GeminiUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Gemini;
 			};
