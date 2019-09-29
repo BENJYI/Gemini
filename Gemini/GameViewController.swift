@@ -59,10 +59,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView!)
         view.addSubview(cursor)
         view.addSubview(movementArea)
-        
-        if let tile = (view.viewWithTag(selectedTag) as! TileView?) {
-            tile.enableHighlightedState(true)
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -143,7 +139,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             let currentSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
             if let matchingTile: TileView = (getMatch(with: TileTag(tempTag), type: currentSelectedTile.type!)) {
                 updateTiles(moveableTiles)
-                // matchTile(with: selectedTile)
                 matchingTile.removeFromSuperview()
                 currentSelectedTile.removeFromSuperview()
             } else {

@@ -57,19 +57,6 @@ class TileView: UIView {
         super.init(coder: aDecoder)
     }
     
-    func enableHighlightedState(_ highlightEnabled: Bool) {
-        if highlightEnabled {
-            frame = frame.insetBy(dx: -frameInset.x, dy: -frameInset.y)
-            layer.borderWidth = 0.9
-            layer.shadowOpacity = 0.8
-            superview?.bringSubviewToFront(self)
-        } else {
-            frame = frame.insetBy(dx: frameInset.x, dy: frameInset.y)
-            layer.borderWidth = 0.0
-            layer.shadowOpacity = 0.0
-        }
-    }
-    
     var column:      Int { get { return ((tag - 1001) % 16) + 1 } }
     var row:         Int { get { return ((tag - 1001) / 16) + 1 } }
     var leadingTag:  Int { get { return (((tag - 1001) / 16) * 16) + 1001 } }
