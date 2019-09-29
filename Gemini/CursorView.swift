@@ -8,11 +8,18 @@
 
 import UIKit
 
-class CursorView: UIView {
-    var td: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
-    var cursor: UIView!
+protocol CursorViewDelegate {
+    func setSelectedTag(_ tag: Int)
+}
 
-    init(frame: CGRect, td: CGPoint) {
+class CursorView: UIView {
+    private var td: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
+    private var cursor: UIView!
+    private var delegate: CursorViewDelegate?
+    
+
+    init(frame: CGRect, td: CGPoint, delegate: CursorViewDelegate) {
+        self.delegate = delegate
         super.init(frame: frame)
         self.td = td
         backgroundColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.6, alpha: 0.3)
@@ -47,6 +54,8 @@ class CursorView: UIView {
             let nx = (col * td.x) + (td.x / 2)
             let ny = (row * td.y) + (td.y / 2)
             cursor.center = CGPoint(x: nx, y: ny)
+            let newTag: Int = (Int(row) * 16) + Int(col) + 1001
+            self.delegate!.setSelectedTag(newTag)
         }
     }
     

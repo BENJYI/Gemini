@@ -8,6 +8,12 @@
 
 import UIKit
 
+extension GameViewController: CursorViewDelegate {
+    func setSelectedTag(_ tag: Int) {
+        selectedTag = tag
+    }
+}
+
 class GameViewController: UIViewController, UIScrollViewDelegate {
     private var boardView: BoardView!
     private var selectedTag: Int = 1001
@@ -15,7 +21,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     private var tileDimensions: CGPoint?
     private var scrollView: ShiftingView?
     private var trans: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
-    private var cursorView: CursorView!
+    private var cursor: CursorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,13 +58,15 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         scrollView?.contentSize = self.scrollView!.frame.size
         scrollView?.isUserInteractionEnabled = false
         
-        cursorView = CursorView.init(frame: CGRect.init(origin: boardView.frame.origin, size: boardView.frame.size), td: tileDimensions!)
+        cursor = CursorView.init(frame: CGRect.init(origin: boardView.frame.origin, size: boardView.frame.size), td: tileDimensions!, delegate: self)
         
         view.addSubview(boardView)
         view.addSubview(scrollView!)
-        view.addSubview(selectionArea)
+//        view.addSubview(selectionArea)
+        view.addSubview(cursor)
+        
         view.addSubview(movementArea)
-        view.addSubview(cursorView)
+        
         
         if let tile = (view.viewWithTag(selectedTag) as! TileView?) {
             tile.enableHighlightedState(true)
@@ -69,11 +77,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
-    
-    @objc func moveCursor(recognizer: UIPanGestureRecognizer) {
-        
-    }
-    // MARK: tile selection
 
     @objc func selectTile(recognizer: UIPanGestureRecognizer) {
         // if the recognizer is first called (.began) reset the translation
