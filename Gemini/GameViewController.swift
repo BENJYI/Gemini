@@ -15,6 +15,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     private var tileDimensions: CGPoint?
     private var scrollView: ShiftingView?
     private var trans: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
+    private var cursorView: CursorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,6 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         let bvw: CGFloat = bvh * (16.0/11.7)
         let bvx: CGFloat = (screenWidth / 2) - (bvw / 2)
         let bvy: CGFloat = 0.0
-        print(screenWidth, screenHeight, bvw, bvh)
         boardView = BoardView.init(frame: CGRect.init(x: bvx, y: bvy, width: bvw, height: bvh))
         let gestureDim = CGSize.init(width: boardView.frame.size.width / 2, height: boardView.frame.size.height)
         let tileWidth: CGFloat = boardView.frame.size.width / 16
@@ -46,17 +46,19 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         let movementGesture = UIPanGestureRecognizer.init(target: self, action: #selector(moveTile))
         movementArea.addGestureRecognizer(movementGesture)
         
-        
         // Scrollview instantiation
         scrollView = ShiftingView.init(frame: boardView.frame)
         scrollView?.delegate = self
         scrollView?.contentSize = self.scrollView!.frame.size
         scrollView?.isUserInteractionEnabled = false
         
+        cursorView = CursorView.init(frame: CGRect.init(origin: boardView.frame.origin, size: boardView.frame.size), td: tileDimensions!)
+        
         view.addSubview(boardView)
         view.addSubview(scrollView!)
         view.addSubview(selectionArea)
         view.addSubview(movementArea)
+        view.addSubview(cursorView)
         
         if let tile = (view.viewWithTag(selectedTag) as! TileView?) {
             tile.enableHighlightedState(true)
@@ -68,14 +70,19 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLayoutSubviews()
     }
     
+    @objc func moveCursor(recognizer: UIPanGestureRecognizer) {
+        
+    }
     // MARK: tile selection
 
     @objc func selectTile(recognizer: UIPanGestureRecognizer) {
+        // if the recognizer is first called (.began) reset the translation
         if recognizer.state == .began {
             panningTag = selectedTag
             trans.x = 0.0
             trans.y = 0.0
         }
+        
         
         let panningTile: TileView? = (view.viewWithTag(panningTag) as? TileView)
         let newPanningTag = getTagWithTranslation(recognizer)
