@@ -50,12 +50,15 @@ class CursorView: UIView {
         if recognizer.state == .ended {
             let row = round(cursor.frame.origin.y / td.y)
             let col = round(cursor.frame.origin.x / td.x)
-            
             let nx = (col * td.x) + (td.x / 2)
             let ny = (row * td.y) + (td.y / 2)
-            cursor.center = CGPoint(x: nx, y: ny)
+            
             let newTag: Int = (Int(row) * 16) + Int(col) + 1001
             self.delegate!.setSelectedTag(newTag)
+            
+            UIView.animate(withDuration: 0.01, animations: {
+                self.cursor.center = CGPoint(x: nx, y: ny)
+            })
         }
     }
     
