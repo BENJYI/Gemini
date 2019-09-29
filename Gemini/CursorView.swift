@@ -22,7 +22,6 @@ class CursorView: UIView {
         self.delegate = delegate
         super.init(frame: frame)
         self.td = td
-        backgroundColor = UIColor.init(red: 0.2, green: 0.4, blue: 0.6, alpha: 0.3)
         
         cursor = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: td.x, height: td.y))
 
