@@ -78,17 +78,17 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         // Add back/forward buttons
 //        let forwardButton = UIButton.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 48.0, height: 96.0))
         let forwardButton = UIButton.init(type: .system)
-        forwardButton.frame = CGRect.init(x: 10.0, y: 10.0, width: 110.0, height: 40.0)
+        forwardButton.frame = CGRect.init(x: 10.0, y: 10.0, width: 50.0, height: 50.0)
         forwardButton.addTarget(self, action: #selector(goForward), for: .touchUpInside)
-        forwardButton.setTitle("Forward", for: .normal)
+        forwardButton.setTitle("F", for: .normal)
         forwardButton.backgroundColor = UIColor.white
         
         
 //        let backButton = UIButton.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 48.0, height: 96.0))
         let backButton = UIButton.init(type: .system)
-        backButton.frame = CGRect.init(x: 10.0, y: 60.0, width: 110.0, height: 40.0)
+        backButton.frame = CGRect.init(x: 10.0, y: 60.0, width: 50.0, height: 50.0)
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        backButton.setTitle("Back", for: .normal)
+        backButton.setTitle("B", for: .normal)
         backButton.backgroundColor = UIColor.white
         
         view.addSubview(forwardButton)
