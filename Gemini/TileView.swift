@@ -14,7 +14,7 @@ protocol TileViewDelegate: AnyObject {
 
 class TileView: UIView {
     var type: String?
-    var frameInset: CGPoint?
+    var frameInset = CGPoint.init()
     var tileDimensions: CGPoint?
     var tileTag: TileTag?
     weak var delegate: TileViewDelegate?
@@ -26,10 +26,11 @@ class TileView: UIView {
         self.tileTag = TileTag(tag)
         self.frame = frame
             
-        frameInset = CGPoint.init(x: frame.size.width * 0.1, y: frame.size.height * 0.1)
+        frameInset.x = frame.size.width * 0.5
+        frameInset.y = frame.size.height * 0.5
         tileDimensions = CGPoint.init(x: frame.size.width, y: frame.size.height)
-        layer.borderWidth = 0.3
-        layer.borderColor = UIColor.gray.cgColor
+        layer.borderWidth = 0.0;
+        layer.shadowOpacity = 0.0;
         layer.shadowOffset = CGSize.init(width: 0, height: 3)
         clipsToBounds = false
         layer.shadowColor = UIColor.black.cgColor
@@ -37,7 +38,7 @@ class TileView: UIView {
         layer.shadowOpacity = 0.0
         
         let imageView = UIImageView.init(image: UIImage.init(named: type))
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         
@@ -46,6 +47,10 @@ class TileView: UIView {
         
         let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(selectNewTile))
         addGestureRecognizer(tapGesture)
+        
+        if type.contains("flower") {
+            self.type = "flower";
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,13 +59,13 @@ class TileView: UIView {
     
     func enableHighlightedState(_ highlightEnabled: Bool) {
         if highlightEnabled {
-            frame.insetBy(dx: -frameInset!.x, dy: -frameInset!.y)
+            frame = frame.insetBy(dx: -frameInset.x, dy: -frameInset.y)
             layer.borderWidth = 0.9
             layer.shadowOpacity = 0.8
-            superview?.bringSubview(toFront: self)
+            superview?.bringSubviewToFront(self)
         } else {
-            frame.insetBy(dx: frameInset!.x, dy: frameInset!.y)
-            layer.borderWidth = 0.3
+            frame = frame.insetBy(dx: frameInset.x, dy: frameInset.y)
+            layer.borderWidth = 0.0
             layer.shadowOpacity = 0.0
         }
     }

@@ -8,60 +8,87 @@
 
 import UIKit
 
+extension GameViewController: CursorViewDelegate {
+    func setSelectedTag(_ tag: Int) {
+        selectedTag = tag
+    }
+}
+
 class GameViewController: UIViewController, UIScrollViewDelegate {
-    @IBOutlet weak var boardView: BoardView?
+    private var boardView: BoardView!
     private var selectedTag: Int = 1001
     private var panningTag: Int = 1001
     private var tileDimensions: CGPoint?
     private var scrollView: ShiftingView?
     private var trans: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
+    private var cursor: CursorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.layoutIfNeeded()
         // Calculate dimensions here
         // Gesture dimensions
-        view.backgroundColor = .clear
-        let gestureDim = CGSize.init(width: boardView!.frame.size.width / 2, height: boardView!.frame.size.height)
+        view.layer.contents = UIImage(named: "gemini-bg")!.cgImage
         
         // Tile dimensions
-        let tileWidth: CGFloat = boardView!.frame.size.width / 16
-        let tileHeight: CGFloat = boardView!.frame.size.height / 9
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let bvh: CGFloat = screenHeight
+        let bvw: CGFloat = bvh * (16.0/11.7)
+        let bvx: CGFloat = (screenWidth / 2) - (bvw / 2)
+        let bvy: CGFloat = 0.0
+        boardView = BoardView.init(frame: CGRect.init(x: bvx, y: bvy, width: bvw, height: bvh))
+        let gestureDim = CGSize.init(width: boardView.frame.size.width / 2, height: boardView.frame.size.height)
+        let tileWidth: CGFloat = boardView.frame.size.width / 16
+        let tileHeight: CGFloat = boardView.frame.size.height / 9
         tileDimensions = CGPoint.init(x: tileWidth, y: tileHeight)
         
-        let selectionArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
+        let selectionArea = UIView.init(frame: CGRect.init(x: boardView.frame.origin.x, y: boardView.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
         let selectionGesture = UIPanGestureRecognizer.init(target: self, action: #selector(selectTile))
         selectionArea.addGestureRecognizer(selectionGesture)
-        view.addSubview(selectionArea)
         
-        let movementArea = UIView.init(frame: CGRect.init(x: boardView!.frame.origin.x + gestureDim.width, y: boardView!.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
+        
+        let movementArea = UIView.init(frame: CGRect.init(x: boardView.frame.origin.x + gestureDim.width, y: boardView.frame.origin.y, width: gestureDim.width, height: gestureDim.height))
         let movementGesture = UIPanGestureRecognizer.init(target: self, action: #selector(moveTile))
         movementArea.addGestureRecognizer(movementGesture)
-        view.addSubview(movementArea)
         
         // Scrollview instantiation
-        scrollView = ShiftingView.init(frame: boardView!.frame)
+        scrollView = ShiftingView.init(frame: boardView.frame)
         scrollView?.delegate = self
         scrollView?.contentSize = self.scrollView!.frame.size
-        view.addSubview(scrollView!)
         scrollView?.isUserInteractionEnabled = false
+        
+        cursor = CursorView.init(frame: CGRect.init(origin: boardView.frame.origin, size: boardView.frame.size), td: tileDimensions!, delegate: self)
+        
+        view.addSubview(boardView)
+        view.addSubview(scrollView!)
+//        view.addSubview(selectionArea)
+        view.addSubview(cursor)
+        
+        view.addSubview(movementArea)
+        
+        
+        if let tile = (view.viewWithTag(selectedTag) as! TileView?) {
+            tile.enableHighlightedState(true)
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
-    
-    // MARK: tile selection
 
     @objc func selectTile(recognizer: UIPanGestureRecognizer) {
+        // if the recognizer is first called (.began) reset the translation
         if recognizer.state == .began {
             panningTag = selectedTag
             trans.x = 0.0
             trans.y = 0.0
         }
         
+        
         let panningTile: TileView? = (view.viewWithTag(panningTag) as? TileView)
-        var newPanningTag = getTagWithTranslation(recognizer)
+        let newPanningTag = getTagWithTranslation(recognizer)
         
         if let newPanningTile: TileView? = (view.viewWithTag(newPanningTag) as? TileView?)
         {
@@ -84,13 +111,40 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         
         if abs(trans.x) >= tileDimensions!.x {
             let shift = Int(abs(trans.x) / trans.x)
-            if translatedTag.val + shift <= translatedTag.trailing && translatedTag.val + shift >= translatedTag.leading { translatedTag.val += shift }
-            trans.x = 0.0
+            var foundTile = false
+            var inx = 1
+            while !foundTile {
+                if translatedTag.val + (shift * inx) <= translatedTag.trailing && translatedTag.val + (shift * inx) >= translatedTag.leading {
+                    if view.viewWithTag(translatedTag.val + (shift * inx)) != nil {
+                        translatedTag.val += shift * inx
+                        foundTile = true
+                    } else {
+                        inx += 1
+                    }
+                } else {
+                    foundTile = true
+                }
+            }
+            trans.x = (trans.x).truncatingRemainder(dividingBy: tileDimensions!.x)
         }
+        
         if abs(trans.y) >= tileDimensions!.y {
             let shift = Int(abs(trans.y) / trans.y) * 16
-            if translatedTag.val + shift <= translatedTag.bottom && translatedTag.val +  shift >= translatedTag.top { translatedTag.val += shift }
-            trans.y = 0.0
+            var foundTile = false
+            var inx = 1
+            while !foundTile {
+                if translatedTag.val + (shift * inx) <= translatedTag.bottom && translatedTag.val + (shift * inx) >= translatedTag.top {
+                    if view.viewWithTag(translatedTag.val + (shift * inx)) != nil {
+                        translatedTag.val += shift * inx
+                        foundTile = true
+                    } else {
+                        inx += 1
+                    }
+                } else {
+                    foundTile = true
+                }
+            }
+            trans.y = (trans.y).truncatingRemainder(dividingBy: tileDimensions!.y)
         }
         
         recognizer.setTranslation(CGPoint.init(x: 0.0, y: 0.0), in: view)
@@ -115,12 +169,12 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             let velocity: CGPoint = recognizer.velocity(in: view)
             var vectorDirection: Int = 0
             
-            if fabs(velocity.x) > fabs(velocity.y) {
+            if abs(velocity.x) > abs(velocity.y) {
                 scrollView!.direction = velocity.x > 0 ? "left" : "right"
-                vectorDirection = Int(CGFloat(velocity.x) / fabs(velocity.x))
+                vectorDirection = Int(CGFloat(velocity.x) / abs(velocity.x))
             } else {
                 scrollView!.direction = velocity.y > 0 ? "up" : "down"
-                vectorDirection = Int(CGFloat(velocity.y) / fabs(velocity.y))
+                vectorDirection = Int(CGFloat(velocity.y) / abs(velocity.y))
             }
             scrollView!.vectorDirection = vectorDirection
             
@@ -154,13 +208,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         var tagIncrement: Int     = 0
         
         if scrollView!.isHorizontal() {
-            panDistance = (-1)*scrollView!.contentOffset.x;
-            length = tileDimensions!.x;
-            tagIncrement = 1;
+            panDistance = (-1)*scrollView!.contentOffset.x
+            length = tileDimensions!.x
+            tagIncrement = 1
         } else {
-            panDistance = (-1)*scrollView!.contentOffset.y;
-            length = tileDimensions!.y;
-            tagIncrement = 16;
+            panDistance = (-1)*scrollView!.contentOffset.y
+            length = tileDimensions!.y
+            tagIncrement = 16
         }
         
         let tileOffset: CGFloat = round(panDistance / length)
@@ -319,7 +373,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     func returnTiles() {
         for tile in scrollView!.shiftingTiles {
             tile.removeFromSuperview()
-            boardView!.addSubview(tile)
+            boardView.addSubview(tile)
         }
         scrollView!.shiftingTiles = []
     }

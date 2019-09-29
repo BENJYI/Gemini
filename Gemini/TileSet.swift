@@ -26,7 +26,7 @@ class TileSet: NSObject {
         
         let winds: [String] = ["wind-north", "wind-east", "wind-south", "wind-west"]
         let dragons: [String] = ["dragon-chun", "dragon-haku", "dragon-green"]
-//        let flowers: [String] = ["flower-1", "flower-2", "flower-3", "flower-4"]
+        let flowers: [String] = ["flower-1", "flower-2", "flower-3", "flower-4"]
         
         var iter = 0
         tileSize = CGSize.init(width: dimensions.x, height: dimensions.y)
@@ -41,10 +41,12 @@ class TileSet: NSObject {
             }
         }
         
-        for _ in 1...8 {
-            let newTile: TileView = TileView.init(frame: CGRect.init(), type: "flower", tag: iter + 1001)
-            iter += 1
-            tiles.append(newTile)
+        for _ in 1...2 {
+            for tile in flowers {
+                let newTile: TileView = TileView.init(frame: CGRect.init(), type: tile, tag: iter + 1001)
+                iter += 1
+                tiles.append(newTile)
+            }
         }
         
         randomizeTiles()
