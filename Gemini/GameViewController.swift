@@ -14,6 +14,19 @@ extension GameViewController: CursorViewDelegate {
     }
 }
 
+struct TileState {
+    var tile: TileView!
+    var tag: Int!
+    var center: CGPoint!
+}
+
+struct HistoryItem {
+    var prev: [TileState]!
+    var next: [TileState]!
+    var match1: TileView!
+    var match2: TileView!
+}
+
 class GameViewController: UIViewController, UIScrollViewDelegate {
     private var boardView: BoardView!
     private var selectedTag: Int = 1001
@@ -22,6 +35,8 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     private var scrollView: ShiftingView?
     private var trans: CGPoint = CGPoint.init(x: 0.0, y: 0.0)
     private var cursor: CursorView!
+    private var history: [HistoryItem] = []
+    private var historyStep: Int = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +74,25 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView!)
         view.addSubview(cursor)
         view.addSubview(movementArea)
+        
+        // Add back/forward buttons
+//        let forwardButton = UIButton.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 48.0, height: 96.0))
+        let forwardButton = UIButton.init(type: .system)
+        forwardButton.frame = CGRect.init(x: 10.0, y: 10.0, width: 110.0, height: 40.0)
+        forwardButton.addTarget(self, action: #selector(goForward), for: .touchUpInside)
+        forwardButton.setTitle("Forward", for: .normal)
+        forwardButton.backgroundColor = UIColor.white
+        
+        
+//        let backButton = UIButton.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 48.0, height: 96.0))
+        let backButton = UIButton.init(type: .system)
+        backButton.frame = CGRect.init(x: 10.0, y: 60.0, width: 110.0, height: 40.0)
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        backButton.setTitle("Back", for: .normal)
+        backButton.backgroundColor = UIColor.white
+        
+        view.addSubview(forwardButton)
+        view.addSubview(backButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -138,7 +172,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         if recognizer.state == .ended {
             let currentSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
             if let matchingTile: TileView = (getMatch(with: TileTag(tempTag), type: currentSelectedTile.type!)) {
-                updateTiles(moveableTiles)
+                updateTiles(moveableTiles, match1: matchingTile, match2: currentSelectedTile)
                 matchingTile.removeFromSuperview()
                 currentSelectedTile.removeFromSuperview()
             } else {
@@ -251,7 +285,9 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         return nil
     }
     
-    func updateTiles(_ tiles: [TileView]) {
+    func updateTiles(_ tiles: [TileView], match1: TileView, match2: TileView) {
+        var prev: [TileState] = []
+        var next: [TileState] = []
         var panDistance: CGFloat = 0.0
         var length: CGFloat = 0.0
         var tagIncrement: Int = 0
@@ -269,6 +305,7 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         let tileOffset: CGFloat = round(panDistance / length)
         scrollView!.contentOffset = CGPoint.init(x: 0.0, y: 0.0)
         for tile in scrollView!.shiftingTiles {
+            prev.append(TileState(tile: tile, tag: tile.tag, center: tile.center))
             var newCenter: CGPoint?
             if scrollView!.isHorizontal() {
                 newCenter = CGPoint.init(x: tile.center.x + (tileOffset * length), y: tile.center.y)
@@ -277,9 +314,44 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             }
             tile.tag += Int(tileOffset * CGFloat(tagIncrement))
             tile.center = newCenter!
+            next.append(TileState(tile: tile, tag: tile.tag, center: tile.center))
         }
+        while (historyStep < history.count-1) {
+            _ = history.popLast()
+        }
+        history.append(HistoryItem(prev: prev, next: next, match1: match1, match2: match2))
+        historyStep += 1
         returnTiles()
         selectedTag += Int(tileOffset * CGFloat(tagIncrement))
+    }
+    
+    @objc func goBack() {
+        if (historyStep == -1) {
+            return
+        }
+        let historyItem: HistoryItem = history[historyStep]
+        for state in historyItem.prev {
+            state.tile.tag = state.tag
+            state.tile.center = state.center
+        }
+        boardView!.addSubview(historyItem.match1)
+        boardView!.addSubview(historyItem.match2)
+        historyStep -= 1
+    }
+    
+    @objc func goForward() {
+        if (historyStep == history.count-1) {
+            return
+        }
+        
+        historyStep += 1
+        let historyItem: HistoryItem = history[historyStep]
+        for state in historyItem.next {
+            state.tile.tag = state.tag
+            state.tile.center = state.center
+        }
+        historyItem.match1.removeFromSuperview()
+        historyItem.match2.removeFromSuperview()
     }
     
     func returnTiles() {
