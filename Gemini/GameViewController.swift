@@ -75,24 +75,30 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(cursor)
         view.addSubview(movementArea)
         
-        // Add back/forward buttons
-//        let forwardButton = UIButton.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 48.0, height: 96.0))
         let forwardButton = UIButton.init(type: .system)
         forwardButton.frame = CGRect.init(x: 10.0, y: 10.0, width: 50.0, height: 50.0)
         forwardButton.addTarget(self, action: #selector(goForward), for: .touchUpInside)
         forwardButton.setTitle("F", for: .normal)
         forwardButton.backgroundColor = UIColor.white
+        forwardButton.layer.borderWidth = 1.0
         
-        
-//        let backButton = UIButton.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 48.0, height: 96.0))
         let backButton = UIButton.init(type: .system)
-        backButton.frame = CGRect.init(x: 10.0, y: 60.0, width: 50.0, height: 50.0)
+        backButton.frame = CGRect.init(x: 10.0, y: 70.0, width: 50.0, height: 50.0)
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         backButton.setTitle("B", for: .normal)
         backButton.backgroundColor = UIColor.white
+        backButton.layer.borderWidth = 1.0
+        
+        let resetButton = UIButton.init(type: .system)
+        resetButton.frame = CGRect.init(x: 10.0, y: 130.0, width: 50.0, height: 50.0)
+        resetButton.addTarget(self, action: #selector(resetTiles), for: .touchUpInside)
+        resetButton.setTitle("R", for: .normal)
+        resetButton.backgroundColor = UIColor.white
+        resetButton.layer.borderWidth = 1.0
         
         view.addSubview(forwardButton)
         view.addSubview(backButton)
+        view.addSubview(resetButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -323,6 +329,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         historyStep += 1
         returnTiles()
         selectedTag += Int(tileOffset * CGFloat(tagIncrement))
+    }
+    
+    @objc func resetTiles() {
+        boardView.tileSet!.randomizeTiles()
+        boardView.layTiles()
+        history = []
+        historyStep = -1
     }
     
     @objc func goBack() {
