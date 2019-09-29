@@ -330,12 +330,23 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         let historyItem: HistoryItem = history[historyStep]
-        for state in historyItem.prev {
-            state.tile.tag = state.tag
-            state.tile.center = state.center
-        }
-        boardView!.addSubview(historyItem.match1)
-        boardView!.addSubview(historyItem.match2)
+        historyItem.match1.layer.opacity = 0.0
+        historyItem.match2.layer.opacity = 0.0
+        self.boardView!.addSubview(historyItem.match1)
+        self.boardView!.addSubview(historyItem.match2)
+        
+        UIView.animate(withDuration: 0.03, animations: {
+            historyItem.match1.layer.opacity = 1.0
+            historyItem.match2.layer.opacity = 1.0
+        }, completion: { finished in
+        })
+
+        UIView.animate(withDuration: 0.01, animations: {
+            for state in historyItem.prev {
+                state.tile.tag = state.tag
+                state.tile.center = state.center
+            }
+        })
         historyStep -= 1
     }
     
@@ -345,13 +356,24 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         
         historyStep += 1
+        
         let historyItem: HistoryItem = history[historyStep]
-        for state in historyItem.next {
-            state.tile.tag = state.tag
-            state.tile.center = state.center
-        }
-        historyItem.match1.removeFromSuperview()
-        historyItem.match2.removeFromSuperview()
+        historyItem.match1.layer.opacity = 1.0
+        historyItem.match2.layer.opacity = 1.0
+        UIView.animate(withDuration: 0.01, animations: {
+            for state in historyItem.next {
+                state.tile.tag = state.tag
+                state.tile.center = state.center
+            }
+        }, completion: { finished in
+            UIView.animate(withDuration: 0.03, animations: {
+                historyItem.match1.layer.opacity = 0.0
+                historyItem.match2.layer.opacity = 0.0
+            }, completion: { finished in
+                historyItem.match1.removeFromSuperview()
+                historyItem.match2.removeFromSuperview()
+            })
+        })
     }
     
     func returnTiles() {
