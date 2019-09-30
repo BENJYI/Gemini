@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF2D98262342AE6A00CF60D4 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2D98252342AE6A00CF60D4 /* SplashViewController.swift */; };
+		BF2D98282342B6FF00CF60D4 /* StartSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2D98272342B6FF00CF60D4 /* StartSegue.swift */; };
 		BF2F2B0F20E97BA4005B000F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F2B0E20E97BA4005B000F /* Constants.swift */; };
 		BF3B4EEA20FFF4DF007E90DA /* sparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = BF3B4EE920FFF4DF007E90DA /* sparkle.sks */; };
 		BF4CD4672340505B00615515 /* CursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4CD4662340505B00615515 /* CursorView.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF2D98252342AE6A00CF60D4 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		BF2D98272342B6FF00CF60D4 /* StartSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSegue.swift; sourceTree = "<group>"; };
 		BF2F2B0E20E97BA4005B000F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BF3B4EE920FFF4DF007E90DA /* sparkle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sparkle.sks; sourceTree = "<group>"; };
 		BF4CD4662340505B00615515 /* CursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorView.swift; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				BF9BFD4220E2D1130077BA5F /* AppDelegate.swift */,
+				BF2D98252342AE6A00CF60D4 /* SplashViewController.swift */,
+				BF2D98272342B6FF00CF60D4 /* StartSegue.swift */,
 				BF4CD4662340505B00615515 /* CursorView.swift */,
 				BF9BFD7520E2D9570077BA5F /* GameViewController.swift */,
 				BF2F2B0E20E97BA4005B000F /* Constants.swift */,
@@ -292,7 +298,9 @@
 				BF9BFD4320E2D1130077BA5F /* AppDelegate.swift in Sources */,
 				BF6F1E3220E2DCF300551D26 /* TileView.swift in Sources */,
 				BF2F2B0F20E97BA4005B000F /* Constants.swift in Sources */,
+				BF2D98282342B6FF00CF60D4 /* StartSegue.swift in Sources */,
 				BF4CD4672340505B00615515 /* CursorView.swift in Sources */,
+				BF2D98262342AE6A00CF60D4 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
