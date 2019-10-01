@@ -206,8 +206,15 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             let currentSelectedTile: TileView = view.viewWithTag(selectedTag) as! TileView
             if let matchingTile: TileView = (getMatch(with: TileTag(tempTag), type: currentSelectedTile.type!)) {
                 updateTiles(moveableTiles, match1: matchingTile, match2: currentSelectedTile)
-                matchingTile.removeFromSuperview()
-                currentSelectedTile.removeFromSuperview()
+                UIView.animate(withDuration: 0.25, animations: {
+                    matchingTile.layer.opacity = 0.0
+                    currentSelectedTile.layer.opacity = 0.0
+                }, completion: { _ in
+                    matchingTile.removeFromSuperview()
+                    currentSelectedTile.removeFromSuperview()
+                    matchingTile.layer.opacity = 1.0
+                    currentSelectedTile.layer.opacity = 1.0
+                })
             } else {
                 scrollView!.contentOffset = CGPoint.init(x: 0.0, y: 0.0)
                 returnTiles()
@@ -356,8 +363,14 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         historyStep += 1
         
         if backButton.layer.opacity == 0.0 {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.backButton.layer.opacity = 1.0
+            })
+        }
+        
+        if forwardButton.layer.opacity == 1.0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.forwardButton.layer.opacity = 0.0
             })
         }
         
@@ -384,13 +397,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         self.boardView!.addSubview(historyItem.match1)
         self.boardView!.addSubview(historyItem.match2)
         
-        UIView.animate(withDuration: 0.03, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             historyItem.match1.layer.opacity = 1.0
             historyItem.match2.layer.opacity = 1.0
         }, completion: { finished in
         })
 
-        UIView.animate(withDuration: 0.01, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             for state in historyItem.prev {
                 state.tile.tag = state.tag
                 state.tile.center = state.center
@@ -399,17 +412,17 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         historyStep -= 1
         
         if forwardButton.layer.opacity == 0.0 {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.forwardButton.layer.opacity = 1.0
             })
         }
         
         if backButton.layer.opacity == 1.0 && historyStep == -1  {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.backButton.layer.opacity = 0.0
             })
         } else if backButton.layer.opacity == 0.0 {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.backButton.layer.opacity = 1.0
             })
         }
@@ -425,13 +438,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         let historyItem: HistoryItem = history[historyStep]
         historyItem.match1.layer.opacity = 1.0
         historyItem.match2.layer.opacity = 1.0
-        UIView.animate(withDuration: 0.01, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             for state in historyItem.next {
                 state.tile.tag = state.tag
                 state.tile.center = state.center
             }
         }, completion: { finished in
-            UIView.animate(withDuration: 0.03, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 historyItem.match1.layer.opacity = 0.0
                 historyItem.match2.layer.opacity = 0.0
             }, completion: { finished in
@@ -441,17 +454,17 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         })
         
         if backButton.layer.opacity == 0.0 {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.backButton.layer.opacity = 1.0
             })
         }
         
         if forwardButton.layer.opacity == 1.0 && historyStep == history.count-1  {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.forwardButton.layer.opacity = 0.0
             })
         } else if forwardButton.layer.opacity == 0.0 {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.forwardButton.layer.opacity = 1.0
             })
         }
