@@ -37,13 +37,17 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
     private var cursor: CursorView!
     private var history: [HistoryItem] = []
     private var historyStep: Int = -1
+    private var backButton: UIButton!
+    private var forwardButton: UIButton!
+    private var menuButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.layoutIfNeeded()
         // Calculate dimensions here
         // Gesture dimensions
-        view.layer.contents = UIImage(named: "gemini-bg")!.cgImage
+        
+        view.backgroundColor = UIColor.init(red: 231.0/255.0, green: 231.0/255.0, blue: 227.0/255.0, alpha: 1.0)
         
         // Tile dimensions
         let screenWidth = UIScreen.main.bounds.width
@@ -52,6 +56,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         let bvw: CGFloat = bvh * (16.0/11.7)
         let bvx: CGFloat = (screenWidth / 2) - (bvw / 2)
         let bvy: CGFloat = 0.0
+        
+        let border = UIView.init(frame: CGRect.init(x: bvx-3, y: bvy-1, width: bvw+6, height: bvh+2))
+        border.backgroundColor = UIColor.clear
+        border.layer.borderColor = UIColor.gray.cgColor
+        border.layer.borderWidth = 1.0
+        view.addSubview(border)
+            
         boardView = BoardView.init(frame: CGRect.init(x: bvx, y: bvy, width: bvw, height: bvh))
         let gestureDim = CGSize.init(width: boardView.frame.size.width / 2, height: boardView.frame.size.height)
         let tileWidth: CGFloat = boardView.frame.size.width / 16
@@ -75,30 +86,46 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(cursor)
         view.addSubview(movementArea)
         
-        let forwardButton = UIButton.init(type: .system)
-        forwardButton.frame = CGRect.init(x: 10.0, y: 10.0, width: 50.0, height: 50.0)
-        forwardButton.addTarget(self, action: #selector(goForward), for: .touchUpInside)
-        forwardButton.setTitle("F", for: .normal)
-        forwardButton.backgroundColor = UIColor.white
-        forwardButton.layer.borderWidth = 1.0
+        let borderLeftX = border.frame.origin.x
+        let borderRightX = border.frame.origin.x + border.frame.size.width
+        let buttonInset = borderLeftX * 0.40 / 2
+        let buttonWidth = borderLeftX * 0.60
+        let buttonY = (bvh - buttonWidth) / 2
+        let buttonEI = buttonInset * 0.8
         
-        let backButton = UIButton.init(type: .system)
-        backButton.frame = CGRect.init(x: 10.0, y: 70.0, width: 50.0, height: 50.0)
+        backButton = UIButton.init(type: .system)
+        backButton.frame = CGRect.init(x: buttonInset, y: buttonY, width: buttonWidth, height: buttonWidth)
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        backButton.setTitle("B", for: .normal)
-        backButton.backgroundColor = UIColor.white
-        backButton.layer.borderWidth = 1.0
+        backButton.setImage(UIImage.init(named: "left-arrow-icon"), for: .normal)
+        backButton.imageEdgeInsets = UIEdgeInsets.init(top: buttonEI, left: buttonEI, bottom: buttonEI, right: buttonEI)
+        backButton.tintColor = UIColor.darkText
+        backButton.layer.borderWidth = 1.5
+        backButton.layer.borderColor = UIColor.darkText.cgColor
+        backButton.layer.cornerRadius = buttonWidth / 2
+        backButton.layer.opacity = 0.0
         
-        let resetButton = UIButton.init(type: .system)
-        resetButton.frame = CGRect.init(x: 10.0, y: 130.0, width: 50.0, height: 50.0)
-        resetButton.addTarget(self, action: #selector(resetTiles), for: .touchUpInside)
-        resetButton.setTitle("R", for: .normal)
-        resetButton.backgroundColor = UIColor.white
-        resetButton.layer.borderWidth = 1.0
+        forwardButton = UIButton.init(type: .system)
+        forwardButton.frame = CGRect.init(x: borderRightX + buttonInset, y: buttonY, width: buttonWidth, height: buttonWidth)
+        forwardButton.addTarget(self, action: #selector(goForward), for: .touchUpInside)
+        forwardButton.setImage(UIImage.init(named: "right-arrow-icon"), for: .normal)
+        forwardButton.imageEdgeInsets = UIEdgeInsets.init(top: buttonEI, left: buttonEI, bottom: buttonEI, right: buttonEI)
+        forwardButton.tintColor = UIColor.darkText
+        forwardButton.layer.borderWidth = 1.5
+        forwardButton.layer.borderColor = UIColor.darkText.cgColor
+        forwardButton.layer.cornerRadius = buttonWidth / 2
+        forwardButton.layer.opacity = 0.0
         
-        view.addSubview(forwardButton)
+        menuButton = UIButton.init(type: .system)
+        menuButton.frame = CGRect.init(x: borderRightX + buttonInset-10, y: buttonInset-10, width: buttonWidth+20, height: buttonWidth/2 + 20)
+        menuButton.addTarget(self, action: #selector(resetTiles), for: .touchUpInside)
+        menuButton.backgroundColor = UIColor.gray
+        menuButton.setTitle("RESET", for: .normal)
+        menuButton.setTitleColor(UIColor.darkText, for: .normal)
+        menuButton.layer.cornerRadius = 4
+        
         view.addSubview(backButton)
-        view.addSubview(resetButton)
+        view.addSubview(forwardButton)
+        view.addSubview(menuButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -327,6 +354,13 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         }
         history.append(HistoryItem(prev: prev, next: next, match1: match1, match2: match2))
         historyStep += 1
+        
+        if backButton.layer.opacity == 0.0 {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.backButton.layer.opacity = 1.0
+            })
+        }
+        
         returnTiles()
         selectedTag += Int(tileOffset * CGFloat(tagIncrement))
     }
@@ -336,6 +370,8 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
         boardView.layTiles()
         history = []
         historyStep = -1
+        backButton.layer.opacity = 0.0
+        forwardButton.layer.opacity = 0.0
     }
     
     @objc func goBack() {
@@ -361,6 +397,22 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             }
         })
         historyStep -= 1
+        
+        if forwardButton.layer.opacity == 0.0 {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.forwardButton.layer.opacity = 1.0
+            })
+        }
+        
+        if backButton.layer.opacity == 1.0 && historyStep == -1  {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.backButton.layer.opacity = 0.0
+            })
+        } else if backButton.layer.opacity == 0.0 {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.backButton.layer.opacity = 1.0
+            })
+        }
     }
     
     @objc func goForward() {
@@ -387,6 +439,22 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
                 historyItem.match2.removeFromSuperview()
             })
         })
+        
+        if backButton.layer.opacity == 0.0 {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.backButton.layer.opacity = 1.0
+            })
+        }
+        
+        if forwardButton.layer.opacity == 1.0 && historyStep == history.count-1  {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.forwardButton.layer.opacity = 0.0
+            })
+        } else if forwardButton.layer.opacity == 0.0 {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.forwardButton.layer.opacity = 1.0
+            })
+        }
     }
     
     func returnTiles() {

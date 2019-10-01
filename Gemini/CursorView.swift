@@ -23,10 +23,11 @@ class CursorView: UIView {
         super.init(frame: frame)
         self.td = td
         
-        cursor = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: td.x, height: td.y))
+        cursor = UIView.init(frame: CGRect.init(x: 1.0, y: 2.0, width: td.x-2, height: td.y-4))
 
-        cursor.layer.borderWidth = 1.0
+        cursor.layer.borderWidth = 2.0
         cursor.layer.borderColor = UIColor.black.cgColor
+        cursor.layer.cornerRadius = 3.0
         cursor.isUserInteractionEnabled = false
         
         let recognizer = UIPanGestureRecognizer.init(target: self, action: #selector(moveCursor))
