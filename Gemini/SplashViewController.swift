@@ -11,7 +11,7 @@ import UIKit
 class SplashViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
-    
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +22,16 @@ class SplashViewController: UIViewController {
             self.titleLabel.alpha = 1.0
         })
         
-        UIView.animate(withDuration: 2.0, animations: {
-            self.authorLabel.alpha = 2.0
+        UIView.animate(withDuration: 1.0, animations: {
+            self.authorLabel.alpha = 1.0
         }, completion: { finished in
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "startSegue", sender: nil)
-            }
+            UIView.animate(withDuration: 1.0, animations: {
+                self.authorLabel.alpha = 0.0
+                self.topConstraint.constant = -60
+                self.view.layoutIfNeeded()
+            }, completion: {_ in
+                self.performSegue(withIdentifier: "homeSegue", sender: nil)
+            })
         })
     }
     

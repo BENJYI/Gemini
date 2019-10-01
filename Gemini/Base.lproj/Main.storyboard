@@ -8,17 +8,62 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="Gemini" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="Gemini" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gemini" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btT-HF-hI0">
+                                <rect key="frame" x="127" y="249.5" width="121" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBe-3z-slD">
+                                <rect key="frame" x="156.5" y="342.5" width="62" height="30"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOP-oT-oRD">
+                                <rect key="frame" x="150" y="384.5" width="75" height="30"/>
+                                <state key="normal" title="New Game">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="startNewGameWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Hf-5N-1KR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5H-4E-Kod">
+                                <rect key="frame" x="159" y="426.5" width="57" height="30"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="btT-HF-hI0" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-60" id="3ZR-gL-NZo"/>
+                            <constraint firstItem="VOP-oT-oRD" firstAttribute="top" secondItem="oBe-3z-slD" secondAttribute="bottom" constant="12" id="AWw-zc-Tgb"/>
+                            <constraint firstItem="btT-HF-hI0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ah9-S1-Byt"/>
+                            <constraint firstItem="oBe-3z-slD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CdI-cV-YPa"/>
+                            <constraint firstItem="x5H-4E-Kod" firstAttribute="top" secondItem="VOP-oT-oRD" secondAttribute="bottom" constant="12" id="FEu-4A-j7E"/>
+                            <constraint firstItem="oBe-3z-slD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="24" id="Qjt-Dx-h1P"/>
+                            <constraint firstItem="VOP-oT-oRD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cDC-l3-f53"/>
+                            <constraint firstItem="x5H-4E-Kod" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qm1-Z4-fVo"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="YLv-GW-8Va"/>
+                    <connections>
+                        <outlet property="continueButton" destination="oBe-3z-slD" id="SoX-d0-gke"/>
+                        <outlet property="settingsButton" destination="x5H-4E-Kod" id="swv-oc-Sh0"/>
+                        <outlet property="startButton" destination="VOP-oT-oRD" id="kzH-p6-7lI"/>
+                        <segue destination="Nl1-jH-oj2" kind="custom" identifier="startSegue" customClass="FadeSegue" customModule="Gemini" id="eSZ-su-e88"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -57,12 +102,29 @@
                     <connections>
                         <outlet property="authorLabel" destination="5gx-R8-xaq" id="3se-Jv-mPh"/>
                         <outlet property="titleLabel" destination="S6o-MY-X1I" id="qmH-Pq-oou"/>
-                        <segue destination="BYZ-38-t0r" kind="custom" identifier="startSegue" customClass="StartSegue" customModule="Gemini" customModuleProvider="target" id="q2r-xw-IiA"/>
+                        <outlet property="topConstraint" destination="h96-BN-T7b" id="INE-ZZ-uau"/>
+                        <segue destination="BYZ-38-t0r" kind="custom" identifier="homeSegue" customClass="FadeSegue" customModule="Gemini" customModuleProvider="target" id="q2r-xw-IiA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5CI-Zy-OQH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-641" y="134"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="NR1-7W-Hrh">
+            <objects>
+                <viewController id="Nl1-jH-oj2" customClass="GameViewController" customModule="Gemini" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dLX-Eu-92F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="DLq-5B-Uuz"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="o1r-9n-bHI"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Clf-YC-whT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="918" y="134"/>
         </scene>
     </scenes>
 </document>
