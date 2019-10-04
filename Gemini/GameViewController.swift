@@ -450,6 +450,8 @@ class GameViewController: UIViewController, UIScrollViewDelegate {
             }, completion: { finished in
                 historyItem.match1.removeFromSuperview()
                 historyItem.match2.removeFromSuperview()
+                historyItem.match1.layer.opacity = 1.0
+                historyItem.match2.layer.opacity = 1.0
             })
         })
         
